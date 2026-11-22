@@ -1,0 +1,94 @@
+MA5800-X7#display board 0/1   ---Display board all details 
+
+
+
+MA5800-X7#display Vlan all   ---- will show the all vlans ids
+
+#######vlan creations
+
+MA5800-X7(config)#vlan 400  smart
+MA5800-X7(config)#vlan 401  smart
+MA5800-X7(config)#vlan 402  smart
+MA5800-X7(config)#vlan 403  smart
+MA5800-X7(config)#vlan 999  smart
+
+
+
+#######Tag the vlan to UPlink port
+
+ port vlan 400 to 408 0/6 0
+ port vlan 400 to 408 0/8 0
+ port vlan 400 to 408 0/8 1
+ port vlan 999 0/8 1
+
+####Uplink port diye kon vlan gulo pass hobe show korbe 
+
+
+MA5800-X7#display port vlan 0/8/0
+
+####Assign ip address to vlan interface
+MA5800-X7(config)#interface vlanif  1
+MA5800-X7(config-if-vlanif1)# ip address 172.27.173.58 255.255.255.252
+MA5800-X7config-if-vlanif1)#quit
+
+#### Gateway ip address add
+MA5800-X7(config)#ip route-static 0.0.0.0(Destination ip ) 0.0.0.0(Destination subnet mask) 172.27.173.57 (Gateway ip )
+
+
+
+#######DBA Profile create 
+Barishal-Huawei-OLT#display dba-profile all  ---Will show the all dba-profile 
+
+Barishal-Huawei-OLT(config)#dba-profile add profile-id  15 profile-name dba-profile-15 type4 max 10000000 
+adding dba profile succeeded
+profile id : 15
+prifle name : dba-profile-15
+
+
+
+#########  Srv-profile create
+
+Barishal-Huawei-OLT(config)#ont-srvprofile gpon profile-id 15 profile-name profile-id-15
+
+Barishal-Huawei-OLT(config-gpon-srvprofile-15)#ont-port pots adaptive 32 eth adaptive 8
+Barishal-Huawei-OLT(config-gpon-srvprofile-15)#commit
+Barishal-Huawei-OLT(config-gpon-srvprofile-15)#quit
+
+
+
+#########  line-profile create
+Barishal-Huawei-OLT(config)#ont-lineprofile gpon profile-id 15 profile-name "line-profile_15"
+Barishal-Huawei-OLT(config-gpon-linprofile-15)#tcont 1 dba-profile-id 10
+Barishal-Huawei-OLT(config-gpon-linprofile-15)#gem add 1 eth tcont 1
+
+Barishal-Huawei-OLT(config-gpon-linprofile-15)#gem mapping 1 0 eth 1
+Barishal-Huawei-OLT(config-gpon-linprofile-15)#commit
+Barishal-Huawei-OLT(config-gpon-linprofile-15)#quit
+
+
+
+
+#### Must enable ont auto find onu on ports
+
+Barishal-Huawei-OLT#display board 0
+
+Barishal-Huawei-OLT#config
+Barishal-Huawei-OLT(config)#interface gpon 0/1
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 0 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 1 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 2 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 3 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 4 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 5 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 6 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 7 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 8 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 9 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 10 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 11 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 12 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 13 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 14 ont-auto-find enable
+Barishal-Huawei-OLT(config-if-gpon-0/1)#port 15 ont-auto-find enable
+
+

@@ -1,0 +1,228 @@
+
+
+
+
+                 Welcome to BDCOM S5610-2AC Ethernet Switch
+
+
+
+
+
+JATRABARI-POP>enable
+password:
+JATRABARI-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging source-interface VLAN999
+logging 10.160.4.11 informational
+logging buffered 4096
+!
+!
+hostname JATRABARI-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username rifat password 7 05403543384579180908
+username xpress-noc password 7 053c3b400b0a6d180408
+!
+enable password 7 050703140a0870 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.92 255.255.255.255
+ no ip directed-broadcast
+!
+interface Port-aggregator1
+ description JB-SAYADABAD-LACP
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface GigaEthernet0/1
+!
+interface GigaEthernet0/2
+!
+interface TGigaEthernet0/1
+ description SAYADABAD-LACP-1
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface TGigaEthernet0/2
+ description SAYADABAD-LACP-2
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description P2P-SHONIR-AKHRA
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/4
+ description P2P-BBC
+ switchport mode trunk
+!
+interface TGigaEthernet0/5
+ description JB-MKT
+ switchport mode trunk
+!
+interface TGigaEthernet0/6
+ description JB-EPON-OLT-1
+ switchport mode trunk
+!
+interface TGigaEthernet0/7
+ description JB-EPON-OLT-2
+ switchport mode trunk
+!
+interface TGigaEthernet0/8
+!
+interface TGigaEthernet0/9
+!
+interface TGigaEthernet0/10
+!
+interface VLAN1
+ shutdown
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN171
+ description jatrabari-2-saydabad-sw
+ ip address 172.16.191.98 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN174
+ description jatrabari-2-bbc-sw
+ ip address 172.16.191.137 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.15 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 174
+ name bbc-jatrabari
+!
+vlan 1,11-14,101-108,110,120-124,170-174,186,190-191,202,211,218,221-222,231-232,234
+vlan 237-238,243-244,247,249,251,262,265-266,282,293,301-302,306,308,314-315,317
+vlan 319,321-323,325,328,333,336,338,343,345,349,351,362,364,382,406-407,419,421
+vlan 422,428,433,436-437,443,449,451,462,464-465,488,493,503,515,528,533,543,602
+vlan 606,621-628,641-644,671-690,720,722,745,751,782,809-816,825-840,857-860,865
+vlan 866-868,999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.92 255.255.255.255 area 0.0.0.0
+ network 172.16.191.84 255.255.255.252 area 0.0.0.0
+ network 172.16.191.88 255.255.255.252 area 0.0.0.0
+ network 172.16.190.24 255.255.255.252 area 0.0.0.0
+ network 172.16.190.28 255.255.255.252 area 0.0.0.0
+ network 172.16.191.96 255.255.255.252 area 0.0.0.0
+ network 172.16.190.12 255.255.255.252 area 0.0.0.0
+ network 172.16.191.136 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO
+snmp-server contact rifat@xpress.ltd
+snmp-server location JATRABARI-POP,DHAKA
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+mqtt client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+JATRABARI-POP#   exit
+JATRABARI-POP>

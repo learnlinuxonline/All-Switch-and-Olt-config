@@ -1,0 +1,142 @@
+enable
+config
+
+sysname Barishal-Huawei-OLT
+
+
+Board Add নিয়ে সংশোধন:
+display board 0
+display version
+
+
+board add 0/0 H805GPFD
+board add 0/1 H805GPFD
+board add 0/8 H801X2CS
+
+2. VLAN creation
+
+vlan 400 smart
+vlan 401 smart
+vlan 402 smart
+vlan 403 smart
+vlan 404 smart
+vlan 405 smart
+vlan 406 smart
+vlan 407 smart
+
+display vlan all
+
+
+3. DBA Profile creation
+
+dba-profile add profile-id 10 profile-name "dba-profile_10" type4 max 1024000
+
+display dba-profile profile-id 10
+
+4. GPON Line Profile creation
+
+ont-lineprofile gpon profile-id 10 profile-name "line-profile_400"
+
+tcont 1 dba-profile-id 10
+
+gem add 1 eth tcont 1
+
+mapping-mode vlan
+
+gem mapping 1 0 vlan 400
+
+commit
+quit
+
+4. Line Profile 10 — আটটি VLAN mapping
+
+ont-lineprofile gpon profile-id 10 profile-name "line-profile_10"
+
+tcont 1 dba-profile-id 10
+
+mapping-mode vlan
+
+gem add 1 eth tcont 1
+gem mapping 1 0 vlan 400
+
+gem add 2 eth tcont 1
+gem mapping 2 0 vlan 401
+
+gem add 3 eth tcont 1
+gem mapping 3 0 vlan 402
+
+gem add 4 eth tcont 1
+gem mapping 4 0 vlan 403
+
+gem add 5 eth tcont 1
+gem mapping 5 0 vlan 404
+
+gem add 6 eth tcont 1
+gem mapping 6 0 vlan 405
+
+gem add 7 eth tcont 1
+gem mapping 7 0 vlan 406
+
+gem add 8 eth tcont 1
+gem mapping 8 0 vlan 407
+
+commit
+quit
+
+
+
+3. Shared Service Profile 10
+ont-srvprofile gpon profile-id 10 profile-name "srv-profile_10"
+
+ont-port pots adaptive 32 eth adaptive 8
+
+ring check enable
+ring check resume-interval 120
+
+commit
+quit
+
+
+
+quit
+
+
+6. Uplink VLAN configuration
+
+port vlan 400 to 407 0/8 0
+
+port vlan 400 0/8 0
+port vlan 401 0/8 0
+port vlan 402 0/8 0
+port vlan 403 0/8 0
+port vlan 404 0/8 0
+port vlan 405 0/8 0
+port vlan 406 0/8 0
+port vlan 407 0/8 0
+
+4. সব PON port-এ ONT discovery
+
+interface gpon 0/0
+
+port 0 ont-auto-find enable
+port 1 ont-auto-find enable
+port 2 ont-auto-find enable
+port 3 ont-auto-find enable
+port 4 ont-auto-find enable
+port 5 ont-auto-find enable
+port 6 ont-auto-find enable
+port 7 ont-auto-find enable
+
+
+
+8. New ONT Registration
+ধরা যাক PON 0-তে একটি নতুন ONT পাওয়া গেছে।
+
+
+ont add 0 sn-auth xxxx.xxxx.xxx.xxx omci ont-lineprofile-id 10 ont-srvprofile-id 10 desc username
+
+quit
+
+service-port vlan 804 gpon 0/0/1 ont 8 eth1 multi
+
+

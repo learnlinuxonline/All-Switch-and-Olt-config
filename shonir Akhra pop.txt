@@ -1,0 +1,231 @@
+
+
+
+
+
+                 Welcome to BDCOM S5610-2AC Ethernet Switch
+
+
+
+
+
+Shonir-Akhra-POP>enable
+password:
+Shonir-Akhra-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging 10.160.4.11 informational
+logging buffered 4096
+!
+!
+hostname Shonir-Akhra-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username xpress-noc password 6 $5$244812602448126004a3f1ea1082a4d922f173fab8eaee2c112f6e9f4c585f9a25ce28dc16b1df79
+username farhad password 6 $5$0236807302368073ba6fd0bae632497ef3e70a507c0d350f1407a06be31c7329999346637e0e7bee
+username care password 6 $5$142774821427748264cbb4287e52f9ab9f5762b07276f2f6edae904a6a24ef96488c14c19b3bdffa
+username rifat password 7 14535821424822701715
+!
+enable password 7 141a2671140b19 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.80 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ description TO-OLT-1-G1
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 390,490,641-644,999-1199
+ switchport trunk vlan-untagged 1
+!
+interface GigaEthernet0/2
+ shutdown
+ description TO-OLT-1-G5
+!
+interface TGigaEthernet0/1
+ description P2P-JATRABARI
+ spanning-tree port-priority 112
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/2
+ description P2P-BBC
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description XTL-DOGAIR
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 121,237-238,338,437
+ keepalive
+!
+interface TGigaEthernet0/4
+ description XTL-DOGAIR-BACKUP
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 121,237-238,338,437
+ keepalive
+!
+interface TGigaEthernet0/5
+ description SA-MKT
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+!
+interface TGigaEthernet0/6
+ description TO-OLT-2-TG2
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-untagged 1
+ keepalive
+!
+interface TGigaEthernet0/7
+ shutdown
+!
+interface TGigaEthernet0/8
+ shutdown
+!
+interface TGigaEthernet0/9
+ shutdown
+!
+interface TGigaEthernet0/10
+ shutdown
+!
+interface VLAN1
+ ip address dhcp fallback 192.168.0.1 255.255.0.0
+ no ip directed-broadcast
+!
+interface VLAN110
+ description shoniakhra-pop-rtr
+ ip address 172.16.190.9 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN121
+ description sa.pop-2-xtl-dogair.rtr
+ ip address 172.16.190.21 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN173
+ description bbc.sw-2-sa.pop.sw
+ ip address 172.16.191.90 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.110 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 751
+ name shoniakhra-ipv6-int
+!
+vlan 1,11-26,100-130,132-190,193-299,301-699,751,800-899,996-999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.80 255.255.255.255 area 0.0.0.0
+ network 172.27.141.4 255.255.255.252 area 0.0.0.0
+ network 172.16.191.88 255.255.255.252 area 0.0.0.0
+ network 172.16.190.8 255.255.255.252 area 0.0.0.0
+ network 172.16.190.20 255.255.255.252 area 0.0.0.0
+ network 172.16.191.92 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO
+snmp-server contact rifat@xpress.ltd
+snmp-server host 10.160.4.9 permit 161 udp-port 161 version v2c 0 xpress.secret snmp
+snmp-server location SHONIR-AKHRA-POP,DHAKA
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+Shonir-Akhra-POP#  exit
+Shonir-Akhra-POP>

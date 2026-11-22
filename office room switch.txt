@@ -1,0 +1,151 @@
+Switch#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.9.0B build 52945
+service timestamps log date
+service timestamps debug date
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rstp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Null0
+!
+interface GigaEthernet0/1
+ switchport pvid 612
+!
+interface GigaEthernet0/2
+ switchport pvid 612
+!
+interface GigaEthernet0/3
+ switchport pvid 612
+!
+interface GigaEthernet0/4
+ switchport pvid 612
+!
+interface GigaEthernet0/5
+ switchport pvid 612
+!
+interface GigaEthernet0/6
+ description Unifi-AP
+ switchport pvid 612
+!
+interface GigaEthernet0/7
+ switchport pvid 612
+!
+interface GigaEthernet0/8
+ switchport pvid 612
+!
+interface GigaEthernet0/9
+ switchport pvid 612
+!
+interface GigaEthernet0/10
+ switchport pvid 612
+!
+interface GigaEthernet0/11
+ switchport pvid 612
+!
+interface GigaEthernet0/12
+ switchport pvid 612
+!
+interface GigaEthernet0/13
+ switchport pvid 612
+!
+interface GigaEthernet0/14
+ switchport pvid 612
+!
+interface GigaEthernet0/15
+ switchport pvid 612
+!
+interface GigaEthernet0/16
+ switchport pvid 612
+!
+interface GigaEthernet0/17
+ switchport pvid 612
+!
+interface GigaEthernet0/18
+ switchport pvid 612
+!
+interface GigaEthernet0/19
+ switchport pvid 612
+!
+interface GigaEthernet0/20
+ switchport pvid 612
+!
+interface GigaEthernet0/21
+ switchport pvid 612
+!
+interface GigaEthernet0/22
+ switchport pvid 612
+ duplex full
+!
+interface GigaEthernet0/23
+ switchport pvid 612
+!
+interface GigaEthernet0/24
+ switchport pvid 612
+!
+interface TGigaEthernet0/1
+ switchport mode trunk
+!
+interface TGigaEthernet0/2
+ switchport pvid 612
+!
+interface TGigaEthernet0/3
+ switchport pvid 612
+!
+interface TGigaEthernet0/4
+ switchport mode trunk
+!
+!
+!
+vlan 1,612-613,999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+!
+!
+ip sshd enable
+!
+!
+!
+!
+Switch# 

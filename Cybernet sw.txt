@@ -1,0 +1,360 @@
+Trying 172.27.177.20...
+Connected to 172.27.177.20.
+Escape character is '^]'.
+User Access Verification
+
+Username: xpress-noc
+Password:
+
+
+
+
+
+
+
+
+                 Welcome to BDCOM S2928 Ethernet Switch
+
+
+
+
+
+CYBERNET-SW>enable
+password:
+CYBERNET-SW#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0D build 78722
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging 10.160.4.11
+logging buffered 4096
+logging trap debugging
+!
+error-disable-recovery 30
+!
+hostname CYBERNET-SW
+vlan disable-learning 1
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+policy-map    tiger229
+!
+policy-map    vlan-limit
+!
+!
+qos policy vlan-limit ingress
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+localauthor Limited
+ exec privilege default 8
+!
+username ahsan password 7 07554F497217070F21
+username xpress-noc password 7 074B46346D1804081528
+username care password 7 07341C112C44283F53542E54 author-group Limited
+!
+enable password 7 07160E086C1607 level 15
+!
+!
+!
+interface Port-aggregator1
+ description SW-OLT
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.120 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface GigaEthernet0/2
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface GigaEthernet0/3
+ shutdown
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ switchport pvid 999
+!
+interface GigaEthernet0/4
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/5
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/6
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+!
+interface GigaEthernet0/7
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/8
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+!
+interface GigaEthernet0/9
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+!
+interface GigaEthernet0/10
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface GigaEthernet0/11
+ shutdown
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface GigaEthernet0/12
+ shutdown
+!
+interface GigaEthernet0/13
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/14
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/15
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/16
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/17
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/18
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/19
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/20
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/21
+ shutdown
+ no spanning-tree
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/22
+ shutdown
+ no spanning-tree
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/23
+ shutdown
+ no spanning-tree
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/24
+ shutdown
+ no spanning-tree
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface TGigaEthernet0/1
+ description EHL-CYBERNET
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/2
+ description CYBERNET-MKT-SPF1
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description TO-MANIKNAGAR
+ switchport mode trunk
+ keepalive
+!
+interface TGigaEthernet0/4
+ switchport mode trunk
+ switchport pvid 999
+!
+interface VLAN1
+ shutdown
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN134
+ description km-sw-2-kam-rtr
+ ip address 172.16.191.221 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN177
+ description kam-nx-2-ehl-nx
+ ip address 172.16.191.22 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN187
+ description kam-sw-to-saydabad-sw
+ ip address 172.16.191.66 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN229
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN306
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN480
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.20 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 134
+ name km-sw-2-kam-rtr
+!
+vlan 177
+ name kam-nx-2-ehl-nx
+!
+vlan 187
+ name kam-sw-to-saydabad-sw
+!
+vlan 229
+ name tiger-int
+!
+vlan 267
+ name CDN-SAYDABAD
+!
+vlan 309
+ name cdn-cybernet
+!
+vlan 999
+ name management
+!
+vlan 1,5,9-10,15,49,101-107,110,120-127,130-131,134,147-154,170-173,175-180,182
+vlan 183-184,187-188,190-192,200-212,215,218,220-222,225,227,229,231-234,237-238,241
+vlan 243-245,247,249,251-252,256,260-262,264-267,272-273,275,280-282,284-288,290
+vlan 291,293-294,299,301-302,304,306-309,311-319,321-323,327-328,330,332-333,335
+vlan 336-339,342-343,345,347-349,351-353,356-357,360-362,364,370-373,375,382,389
+vlan 390-391,397-400,406-407,411-412,414-415,419-422,428,433,435-437,440,443,449
+vlan 451,456,462,464-466,470-473,475,480,486,488,490-491,493,501,503,515,528,533
+vlan 543,556,570,573,602,615-618,621-628,630,639-640,666,671-690,714,720,722,745
+vlan 751,782,833-840,999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 172.16.191.20 255.255.255.252 area 0.0.0.0
+ network 10.200.8.120 255.255.255.255 area 0.0.0.0
+ network 172.16.191.220 255.255.255.252 area 0.0.0.0
+ network 172.16.191.64 255.255.255.252 area 0.0.0.0
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+ip http language english
+ip http server
+!
+!
+snmp-server community 0 xpress.secret RO
+snmp-server community 0 datakoi RO
+snmp-server contact X-Press_Technologies_Ltd.<care@xpress.ltd>
+snmp-server location "121/1/A South Kamalapur(23.726450, 90,424480)"
+!
+line vty 0 4
+ exec-timeout 3600
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 103.43.148.148
+ntp server 10.160.4.9
+ntp client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+CYBERNET-SW#exit
+CYBERNET-SW>

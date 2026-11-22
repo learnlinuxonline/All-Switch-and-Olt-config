@@ -1,0 +1,214 @@
+
+
+
+
+                 Welcome to BDCOM S5610-2AC Ethernet Switch
+
+
+
+
+
+BBC-POP>enable
+password:
+BBC-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging source-interface VLAN999
+logging 10.160.4.11 informational
+logging buffered 4096
+!
+!
+hostname BBC-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username xpress-noc password 6 $5$74569732745697323e06c09d893feb8b46424d2bcff549af8b2617d871162f86bcb3432135a12ffa
+username farhad password 6 $5$9941030399410303f3b33adba31059e116a044768861ad8a826735033fa0889fae66b43609f31e7e
+username rifat password 7 074f40371b5310081a28
+!
+enable password 6 $5$962051059620510558bb65bcd62dc3b1f6cf29dd0fcd2ebfff0517cfd13fbd4523ec554dc8928be0 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.93 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ switchport mode trunk
+!
+interface GigaEthernet0/2
+ switchport mode trunk
+!
+interface TGigaEthernet0/1
+ description FROM-AGILA
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+ switchport pvid 999
+!
+interface TGigaEthernet0/2
+ description JB-POP-T4
+ spanning-tree cost 4000
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/3
+ description SA-POP-T2
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+ switchport pvid 999
+!
+interface TGigaEthernet0/4
+ description BSMAT-BKUP
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/5
+ description XTL-PARGENDARIA
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+ no fiber-auto-config
+ speed 1000
+ duplex auto
+!
+interface TGigaEthernet0/6
+ description XTL-FARIDABAD
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/7
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/8
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/9
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface TGigaEthernet0/10
+ switchport mode trunk
+ switchport trunk vlan-allowed 1-824,833-864,869-1000
+!
+interface VLAN174
+ description bbc-2-jatrabari-sw
+ ip address 172.16.191.138 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN192
+ description bbc-pop-2-rd-pop-sw
+ ip address 172.16.191.86 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.112 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 1,11-14,107,109-190,192-299,301-899,991-1000
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 172.16.191.84 255.255.255.252 area 0.0.0.0
+ network 10.200.8.93 255.255.255.255 area 0.0.0.0
+ network 172.16.191.136 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO
+snmp-server contact rifat@xpress.ltd
+snmp-server location BBC-POP,DHAKA
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+mqtt client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+BBC-POP# exit
+BBC-POP>

@@ -1,0 +1,876 @@
+Trying 172.27.175.1...
+Connected to 172.27.175.1.
+Escape character is '^]'.
+User Access Verification
+login: noc
+Password:
+
+Cisco Nexus Operating System (NX-OS) Software
+TAC support: http://www.cisco.com/tac
+Copyright (C) 2002-2026, Cisco and/or its affiliates.
+All rights reserved.
+The copyrights to certain works contained in this software are
+owned by other third parties and used and distributed under their own
+licenses, such as open source.  This software is provided "as is," and unless
+otherwise stated, there is no warranty, express or implied, including but not
+limited to warranties of merchantability and fitness for a particular purpose.
+Certain components of this software are licensed under
+the GNU General Public License (GPL) version 2.0 or
+GNU General Public License (GPL) version 3.0  or the GNU
+Lesser General Public License (LGPL) Version 2.1 or
+Lesser General Public License (LGPL) Version 2.0.
+A copy of each such license is available at
+http://www.opensource.org/licenses/gpl-2.0.php and
+http://opensource.org/licenses/gpl-3.0.html and
+http://www.opensource.org/licenses/lgpl-2.1.php and
+http://www.gnu.org/licenses/old-licenses/library.txt.
+COLO-NX-SW# show running-config
+
+!Command: show running-config
+!Running configuration last done at: Thu Nov 12 12:18:34 2026
+!Time: Sun Nov 15 17:59:55 2026
+
+version 10.5(5) Bios:version 05.53
+hostname COLO-NX-SW
+vdc COLO-NX-SW id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 511
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+feature ospf
+feature ospfv3
+feature interface-vlan
+feature vn-segment-vlan-based
+feature lacp
+feature tunnel
+feature lldp
+clock timezone BDT 6 0
+feature nv overlay
+
+role name custom-operator
+  description Custom Role for Interface Control and Save
+  rule 50 permit command copy running-config startup-config
+  rule 40 permit command no shutdown
+  rule 30 permit command shutdown
+  rule 20 permit command configure terminal ; interface *
+  rule 10 permit command show *
+no password strength-check
+username admin password 5 $5$EIIEBF$ee1yAEiokeN4gzkKnWUNcMQFGsPo0oidozjZp4NXcN3  role network-admin
+username ahsan password 5 $5$DDNMIJ$V2Ke6lEC9Lgf8CW5LO0q8mb7thUxDYEPZQYswF7CFqC  role network-admin
+username ahsan passphrase  lifetime 99999 warntime 14 gracetime 3
+username rifat password 5 $5$DDDKOO$Chmmaa/X2P.f31Awcw635ZewvVAC/ieijYeIxV8H7y8  role network-admin
+username rifat passphrase  lifetime 99999 warntime 14 gracetime 3
+username xpress-noc password 5 $5$JHLBKK$/aIfjUmgnfcsIgLTMuE/GeUHUXDf0uZ9AfQQbcUTOc3  role network-operator
+username xpress-noc passphrase  lifetime 99999 warntime 14 gracetime 3
+username noc password 5 $5$AGDHHM$VjCjH/Gt9OHfYZ0HqEQ6Vw1vAgIgO00oQcvWnEGY/59  role network-admin
+username noc passphrase  lifetime 99999 warntime 14 gracetime 3
+ip domain-lookup
+spanning-tree mode mst
+ip access-list VXLAN-CAPTURE
+  10 permit udp 10.200.8.100/32 172.16.191.142/32 eq 4789
+  20 permit udp 172.16.191.142/32 10.200.8.100/32 eq 4789
+  30 permit udp 10.200.8.100/32 eq 4789 172.16.191.142/32
+copp profile strict
+snmp-server contact care@xpress.ltd
+snmp-server location Colocity, Mohakhali, Mohakhali, Dhaka, BD [23.7794991,90.4046021]
+snmp-server user noc network-admin auth md5 056B015DEDCDC548C418E64C6845EB967A91 priv aes-128 0166216DA2BBF456FD489D1A621C
+B9F819A5 localizedV2key
+snmp-server user admin network-admin auth md5 522316D03AA113D45A0B3BF676E397BD2E0C priv aes-128 330C3DB7099361B01D5D54CB27
+A78AF2345B localizedV2key
+snmp-server user ahsan network-admin auth md5 040E8701B2DA114FB0761CB6D1DFFBD47C15 priv aes-128 2154CF58EC921E41DC3B5CB5E9
+F4D0E739B3 localizedV2key
+snmp-server user rifat network-admin auth md5 21647DD5C8A592853A0D0FB7C9D48DD2C157 priv aes-128 530068CDC9ACB7D156661695F6
+B4F5B654F4 localizedV2key
+snmp-server user xpress-noc network-operator auth md5 21615FF015CFA32526F90322BEDE8B5A53CF priv aes-128 214458FB0592A07973
+A4773AFB8C94581C8A localizedV2key
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+snmp-server community xpress.secret group network-operator
+ntp server 10.160.4.9 use-vrf default
+ntp server 103.43.148.148 use-vrf default
+
+ip route 0.0.0.0/0 172.27.177.1
+vlan 1,5-6,9-14,20-21,30,41,43,50,111-112,132,135,169,175-176,202,204-213,216,218,221-222,225,229,231-232,234-235,237,242-
+244,247-249,251-252,255,260-262,265-267,276,282,284-286,288,297,300,306,308-311,313-319,321-333,335-343,345,349-351,356,36
+0-364,370,382,386,389,396-410,414-415,417-420,422,428,433,436-437,440,443-444,450-451,456,462,464,466,470-471,480
+vlan 486,488,493,499,503,510,515,528,533,543-544,550,555-556,570,604-607,611-617,621-628,639-644,654,666,671-678,680,682-6
+84,686-687,689,720,722,745-746,751,764-771,782,794-795,811,817-832,861-868,873-876,888,901,931-933,999,1001-1008,1208,1248
+,1255,1368-1370,1372,1375,1401,1464,1500,1520-1527,1530-1534,1540-1549,1610-1617,1675,1964,2123-2124,2176,2213,2221,2377-2
+378,2381,2464,2602,2780-2781
+vlan 2909-2910,2921-2924,2953-2964,3221,3280,3310
+vlan 41
+  name Novocom-Primary-IN
+vlan 43
+  name novocom-2
+vlan 111
+  name nrb-nx-2-bdix-rtr
+vlan 112
+  name nrb-nx-to-wari-sw-peering
+vlan 132
+  name colo-nx-to-colo-nat-chr
+vlan 135
+  name colo-nx-2-syl-nx-bahon-peering
+vlan 169
+  name nrb-nx-to-content-rtr
+vlan 175
+  name nrb-nx-2-ehl-nx-peering
+vlan 176
+  name nrb-nx-2-gul-sw-peering
+vlan 202
+  name fna-cybernet
+vlan 209
+  name ahmedbag-int
+vlan 210
+  name Ahmedbag-ipv6-int
+vlan 216
+  name N2-XTL-Gulshan-RTR
+vlan 218
+  name N2-Storm-Net
+vlan 229
+  name tiger-int
+vlan 242
+  name jun-colo-nat-ccr-rtr
+vlan 244
+  name Peerex-Peering
+vlan 248
+  name x-press-infrustructure
+vlan 265
+  name FNA-Rd-net
+vlan 266
+  name RD-CDN
+vlan 267
+  name saydabad-cdn
+vlan 276
+  name ehl-content-cdn
+vlan 288
+  name switch-access
+vlan 297
+  name Peerx-P2P
+vlan 300
+  name expired-user-mkt
+vlan 310
+  name ix-2-jun-cdn
+vlan 311
+  name ahmedbagh-ix-ipv6
+vlan 318
+  name N2-Storm-Net-BDIX
+vlan 324
+  name N2-F-Storm-Net
+vlan 327
+  name ahmedbagh-ix
+vlan 329
+  name ix-syl-bahon
+vlan 330
+  name GR-STORM-NET
+vlan 331
+  name jun-syl-int-bahon-peering
+vlan 340
+  name Banglamotor-ix
+vlan 341
+  name syl-content-cdn
+vlan 342
+  name galaxy
+vlan 396
+  name N2-Gulshan-BDIX
+vlan 398
+  name storage-server
+vlan 414
+  name circle-ix
+vlan 417
+  name windstream-iig
+vlan 418
+  name circle-fna
+vlan 450
+  name summit-fna-uttara
+vlan 462
+  name saydabad-ggc
+vlan 466
+  name ahmedbagh-content
+vlan 528
+  name FNA-Samu-IT
+vlan 1368
+  name wcl-f@h-syl-1368
+vlan 1372
+  name wcl-f@h-nrb-nx-syl-nx-pr
+vlan 1401
+  name test-1401
+  vn-segment 11401
+vlan 2176
+  name SAM
+
+spanning-tree mst 0 priority 0
+vrf context management
+  ip route 0.0.0.0/0 172.27.175.2
+
+
+interface Vlan1
+
+interface Vlan21
+  no shutdown
+  ip address 21.21.21.1/30
+
+interface Vlan111
+  description nrb-nx-2-bdix-rtr
+  no shutdown
+  ip address 172.16.191.5/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan112
+  description nrb-nx-to-wari-sw-peering
+  no shutdown
+  ip address 172.16.191.109/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan132
+  description colo-nx-to-colo-nat-chr
+  no shutdown
+  ip address 172.16.191.101/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan135
+  description colo-nx-2-syl-nx-bahon-peering
+  no shutdown
+  ip address 172.16.191.133/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan175
+  description nrb-nx-2-ehl-nx-peering
+  no shutdown
+  mtu 9000
+  ip address 172.16.191.106/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan176
+  description nrb-nx-2-gul-sw-peering
+  no shutdown
+  ip address 172.16.191.17/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan999
+  no shutdown
+  ip address 172.27.177.90/24
+
+interface Vlan1372
+  description wcl-f@h-nrb-nx-syl-nx-pr
+  no shutdown
+  ip address 172.16.191.121/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan1401
+  no shutdown
+  ip address 10.20.90.3/24
+
+interface Vlan1523
+  description nrb-nx-2-syl-nx-scl-data-peering
+  no shutdown
+  ip address 172.16.191.125/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan1540
+  no shutdown
+
+interface Vlan1541
+  no shutdown
+
+interface Vlan1542
+  no shutdown
+
+interface Vlan1615
+  no shutdown
+  ip address 10.20.30.2/30
+
+interface port-channel1
+  description p2p-colo-wari-lacp
+  switchport
+  switchport mode trunk
+  spanning-tree guard root
+  mtu 9216
+
+interface port-channel3
+  description upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  spanning-tree guard root
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+
+interface port-channel6
+  description p2p-colo-ehl-lacp
+  switchport
+  switchport mode trunk
+  spanning-tree guard root
+  mtu 9216
+
+interface port-channel8
+  description p2p-colo-gulshan
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 999
+  spanning-tree guard root
+  mtu 9216
+
+interface port-channel9
+  description edge-ix-router
+  switchport
+  switchport mode trunk
+  spanning-tree port type edge trunk
+  spanning-tree guard root
+  mtu 9216
+
+interface port-channel10
+  description edge-juniper
+  switchport
+  switchport mode trunk
+  spanning-tree port type edge trunk
+  spanning-tree guard root
+  mtu 9216
+
+interface nve1
+  no shutdown
+  source-interface loopback0
+  member vni 11401
+    ingress-replication protocol static
+      peer-ip 172.16.191.142
+
+interface Ethernet1/1
+  description po8-1/1-1-p2p-colo-gulshan
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 999
+  spanning-tree guard root
+  mtu 9216
+  channel-group 8 mode active
+  no shutdown
+
+interface Ethernet1/2
+  description data-f@h-aggregation
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 2909-2910,2921-2924,2953-2964
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/3
+  description po3-1/3-1-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/4
+  description upstream-level3
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 396,1500
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/5
+  description po9-1/5-1-edge-ix-router
+  switchport
+  switchport mode trunk
+  mtu 9216
+  no shutdown
+
+interface Ethernet1/6
+  description po9-1/6-2-edge-ix-router
+  mtu 9216
+  ip address 172.16.190.1/30
+  ip router ospf 10 area 0.0.0.0
+  no shutdown
+
+interface Ethernet1/7
+  description tmp-ericsson-vm
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  no shutdown
+
+interface Ethernet1/8
+  description tmp-ericsson-vm
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  no shutdown
+
+interface Ethernet1/9
+  description data-bahon-aggregation
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 135,329,331,341,350,764-771
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/10
+  description po8-1/10-2-p2p-colo-gulshan
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 999
+  spanning-tree guard root
+  mtu 9216
+  channel-group 8 mode active
+  no shutdown
+
+interface Ethernet1/11
+  description po1-1/11-1-p2p-colo-wari-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/12
+  description po1-1/12-2-p2p-colo-wari-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/13
+  description po1-1/13-3-p2p-colo-wari-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 1 mode active
+  no shutdown
+
+interface Ethernet1/14
+  description upstream-rego-cdn-backup-1330
+  switchport
+  switchport mode trunk
+  spanning-tree guard root
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/15
+  description 1036-sppplus1
+  switchport
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/16
+  description 1036-sppplus2
+  switchport
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/17
+  description upstream-summit-paltan-noc
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 611-614,654,671
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/18
+  description upstream-summit-banani-dr
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 2377-2378,2381
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/19
+  description po3-1/19-2-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  channel-group 3
+  no shutdown
+
+interface Ethernet1/20
+  description po3-1/20-3-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  channel-group 3
+  no shutdown
+
+interface Ethernet1/21
+  description po3-1/21-4-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  channel-group 3
+  no shutdown
+
+interface Ethernet1/22
+  description data-f@h-dream-dhaka
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 2909-2910,2921-2924,2953-2964
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+
+interface Ethernet1/23
+  description data-summit-aggregation
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 1520-1527,1530-1534,1540-1549
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/24
+  description po3-1/24-5-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  channel-group 3
+  no shutdown
+
+interface Ethernet1/25
+  description po3-1/25-6-upstream-colo-wcl-lacp
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 285,314-317,319,321,330,332,414-415,417-420,1368-1372,1375,1610-1617,2213,3280
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  channel-group 3
+  no shutdown
+
+interface Ethernet1/26
+  description chr-content
+  switchport
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/27
+  description client-bdcalling-mohakhali
+  switchport
+  switchport access vlan 555
+  spanning-tree bpdufilter enable
+  mtu 9216
+  speed 1000
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/28
+  description po6-1/28-1-p2p-colo-ehl-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 6 mode active
+  no shutdown
+
+interface Ethernet1/29
+  description po10-1/29-1-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+
+interface Ethernet1/30
+  description po10-1/30-2-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/31
+  description po10-1/31-3-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/32
+  description po10-1/32-4-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/33
+  description po10-1/33-5-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/34
+  description po10-1/34-6-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/35
+  description client-tirjok
+  switchport
+  switchport access vlan 30
+  spanning-tree guard root
+  spanning-tree bpdufilter enable
+  mtu 9216
+  speed 1000
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/36
+  description po10-1/36-7-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/37
+  description po10-1/37-8-edge-juniper
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 10 mode active
+  no shutdown
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+  description transit-storm
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 21,389,639-641,650,999
+  spanning-tree guard root
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/40
+  description aftabnagor-olt
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 873-876,999
+  spanning-tree guard root
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/41
+  description po6-1/41-2-p2p-colo-ehl-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 6 mode active
+  no shutdown
+
+interface Ethernet1/42
+  description netelastic-lan
+  switchport
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/43
+  description po6-1/43-3-p2p-colo-ehl-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 6 mode active
+  no shutdown
+
+interface Ethernet1/44
+  description po6-1/44-4-p2p-colo-ehl-lacp
+  switchport
+  switchport mode trunk
+  mtu 9216
+  channel-group 6 mode active
+  no shutdown
+
+interface Ethernet1/45
+  description dell-super-10g
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/46
+  description netelastic-wan
+  switchport
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/47
+  description supermicro-12bay
+  switchport
+  switchport mode trunk
+  switchport trunk allowed vlan 10,248,398-410
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/48
+  description dell-maamax-25g
+  no cdp enable
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+  mtu 9216
+  storm-control broadcast level 10.00
+  storm-control multicast level 10.00
+  storm-control unicast level 10.00
+  no shutdown
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface mgmt0
+  vrf member management
+  ip address 172.27.175.1/30
+
+interface loopback0
+  ip address 10.200.8.100/32
+  ip router ospf 10 area 0.0.0.0
+icam monitor scale
+
+line console
+line vty
+  session-limit 15
+boot nxos bootflash:/nxos64-cs.10.5.5.M.bin
+router ospf 10
+monitor session 1
+  source interface port-channel6 both
+  destination interface sup-eth0
+  no shut
+
+logging server 10.160.4.11
+logging source-interface loopback0
+
+
+COLO-NX-SW#  exit
+

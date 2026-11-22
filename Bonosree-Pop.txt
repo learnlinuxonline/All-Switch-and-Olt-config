@@ -1,0 +1,320 @@
+
+
+
+
+
+
+                 Welcome to BDCOM S2928 Ethernet Switch
+
+
+
+
+
+Bonosree-Pop>enable
+password:
+Bonosree-Pop#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0D build 78722
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging 10.5.49.6
+logging 10.160.1.23
+logging 10.160.4.11
+logging buffered 4096
+logging trap debugging
+!
+error-disable-recovery 60
+!
+hostname Bonosree-Pop
+vlan disable-learning 1
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+localauthor Limited
+ exec privilege default 8
+!
+username ahsan password 7 054644551009701F10
+username care password 7 0525111D4936124F42345462 author-group Limited
+username xpress-noc password 7 053C3B400B0A6D180408
+!
+enable password 7 050703140A0870 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.85 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ description used by exird
+ spanning-tree bpdufilter enable
+ spanning-tree guard root
+ switchport mode trunk
+ keepalive
+!
+interface GigaEthernet0/2
+ description FREE
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/3
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/4
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/5
+ description FORAJI-TECH
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/6
+ description A2Tech IT
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/7
+ shutdown
+ description FREE
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/8
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/9
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/10
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/11
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/12
+ shutdown
+ description JSSIT
+ spanning-tree bpdufilter enable
+ switchport pvid 204
+!
+interface GigaEthernet0/13
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/14
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/15
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/16
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/17
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/18
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/19
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/20
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/21
+ shutdown
+ no fiber-auto-config
+!
+interface GigaEthernet0/22
+ shutdown
+ no fiber-auto-config
+!
+interface GigaEthernet0/23
+ description BDCALLING-CORE-RTR
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 204,284
+ switchport mode trunk
+ switchport pvid 204
+!
+interface GigaEthernet0/24
+ description BDCALLING-CORE-backup
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 204,284
+ switchport mode trunk
+ switchport pvid 204
+!
+interface TGigaEthernet0/1
+ description P2P-EHL-NEXUS
+ spanning-tree cost 2000
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/2
+ description P2P-GULSHAN
+ spanning-tree cost 4000
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description Exord Online
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 361
+ switchport trunk vlan-untagged 1
+ switchport mode trunk
+!
+interface TGigaEthernet0/4
+ description P2P-Malibagh
+ spanning-tree cost 6000
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface VLAN178
+ ip address 172.16.191.26 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN180
+ description bonosree-sw-2-ehl-nx-sw-peering
+ ip address 172.16.191.38 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN182
+ description malibagh-sw-2-bonosree-sw
+ ip address 172.16.191.45 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN328
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.12 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 178
+ name bonosree-sw-2-gulshan-sw
+!
+vlan 180
+ name bonosree-sw-2-kam-nx-sw-peering
+!
+vlan 182
+ name malibagh-sw-2-bonosree-sw
+!
+vlan 901
+ name galaxy
+!
+vlan 999
+ name management
+!
+vlan 1,5-6,9,15,30,127-128,130,132,177-178,180,182-186,192,202,204-205,209-210,218
+vlan 234,239,260-261,263,284,290,306,311,315-316,327-328,330,332,335-336,342,356
+vlan 360-361,370,389-390,400,406,410,436,456,466,470-471,493,501,510,528,550,556
+vlan 570,604,615-618,626-628,630,639-640,720,861-864,901,999-1008,1464,2377,2602
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.85 255.255.255.255 area 0.0.0.0
+ network 172.16.191.36 255.255.255.252 area 0.0.0.0
+ network 172.16.191.44 255.255.255.252 area 0.0.0.0
+ network 172.16.191.24 255.255.255.252 area 0.0.0.0
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+ip http language english
+ip http server
+!
+!
+snmp-server community 0 public RO
+snmp-server community 0 xpress.secret RO
+snmp-server community 0 datakoi RO
+snmp-server contact X-Press_Technologies_Ltd.<care@xpress.ltd>
+snmp-server location Bonosree_Pop[23.762557,90.429204],Dhaka,BD
+!
+line vty 0 4
+ exec-timeout 3600
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+ntp max-distance 16
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+Bonosree-Pop#   exit
+Bonosree-Pop>

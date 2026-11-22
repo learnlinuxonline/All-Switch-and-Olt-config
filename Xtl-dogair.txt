@@ -1,0 +1,249 @@
+
+User Access Verification
+
+Username: noc
+Password: noc
+
+
+
+
+
+
+
+
+                 Welcome to BDCOM P3600-08 EPON OLT
+
+
+
+
+
+DOGAIR-BDCOM-EPON-OLT>enable
+password:
+DOGAIR-BDCOM-EPON-OLT#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 10.1.0G build 104155
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging buffered 100000
+!
+hostname DOGAIR-BDCOM-EPON-OLT
+port-protected 1
+!
+!
+!
+lldp run
+!
+!
+!
+!
+no spanning-tree
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username admin password 7 144253284a42
+username noc password 7 144f5e1e
+username rifat password 7 14535821424822701715
+!
+enable password 7 14465d1c434047 level 15
+!
+!
+
+epon oam-version 1 0x30
+epon oam-version 2 0x21
+epon oam-version 3 0x20
+!
+interface Null0
+!
+!!slot 0 1 P3600-08 mother card
+interface GigaEthernet0/1
+ description FROM-MKT-E6
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/2
+ description FROM-MKT-E7
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/3
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/4
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface TGigaEthernet0/1
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface TGigaEthernet0/2
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface TGigaEthernet0/3
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface TGigaEthernet0/4
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface EPON0/1
+ 
+ switchport pvid 2001
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+
+!
+interface EPON0/2
+
+ switchport pvid 2002
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+
+!
+interface EPON0/3
+ 
+ switchport pvid 2003
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+
+!
+interface EPON0/4
+ 
+ switchport pvid 2004
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+
+!
+interface EPON0/5
+ 
+ switchport pvid 2005
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+
+!
+interface EPON0/6
+ switchport pvid 2006
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface EPON0/7
+ switchport pvid 2007
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface EPON0/8
+ switchport pvid 2008
+ switchport protected 1
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+!!slot end
+!
+interface VLAN1
+ ip address 192.168.0.1 255.255.255.0
+ no ip directed-broadcast
+!
+interface VLAN2001
+ ip address 172.27.178.10 255.255.255.252
+ no ip directed-broadcast
+!
+!
+!
+vlan 1,999,2001-2008
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip route default 172.27.178.9
+ip exf
+!
+ipv6 exf
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpresssecret RO
+!
+!
+!
+time-zone BD 6 0
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+DOGAIR-BDCOM-EPON-OLT# exit
+DOGAIR-BDCOM-EPON-OLT>

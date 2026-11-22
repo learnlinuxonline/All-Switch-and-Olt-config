@@ -1,0 +1,355 @@
+
+                 Welcome to BDCOM S2928 Ethernet Switch
+
+
+
+
+
+Gulshan-POP>en
+enable  enter
+Gulshan-POP>enable
+password:
+Gulshan-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0D build 78722
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging 10.5.49.6
+logging 10.160.1.23
+logging 10.160.4.11
+logging buffered 4096
+logging trap debugging
+!
+hostname Gulshan-POP
+vlan disable-learning 1
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+localauthor Limited
+ exec privilege default 8
+!
+username admin password 7 052F304A403F
+username xpress-noc password 7 053C3B400B0A6D180408
+username ahsan password 7 054644551009701F10
+username care password 7 0525111D4936124F42345462 author-group Limited
+!
+enable password 7 050703140A0870 level 15
+!
+!
+!
+interface Port-aggregator1
+ description COLO-GUL
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport pvid 999
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.83 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ description TO_MKT_ETH1
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-untagged 1
+ switchport mode dot1q-tunnel-uplink
+ keepalive
+!
+interface GigaEthernet0/2
+ description TO_MKT_ETH2
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-untagged 1
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/3
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/4
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/5
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/6
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/7
+ description TO_GUL_OLT
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 212,605,615,617,623,901,999
+ switchport trunk vlan-untagged 1
+ switchport mode trunk
+ keepalive
+!
+interface GigaEthernet0/8
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/9
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/10
+ description ELECTRICITY MONITOR
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/11
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/12
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/13
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/14
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/15
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/16
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/17
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/18
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/19
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/20
+ shutdown
+ spanning-tree bpdufilter enable
+!
+interface GigaEthernet0/21
+ shutdown
+ description TIRJOK
+ no spanning-tree
+ spanning-tree bpdufilter enable
+ switchport pvid 30
+ loopback-detection enable
+ loopback-detection control shutdown
+ keepalive
+ no fiber-auto-config
+!
+interface GigaEthernet0/22
+ shutdown
+ description SINE-10
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 212,516-517
+ switchport trunk vlan-untagged 1
+ switchport mode trunk
+!
+interface GigaEthernet0/23
+ shutdown
+ description skytel
+ spanning-tree bpdufilter enable
+ keepalive
+!
+interface GigaEthernet0/24
+ shutdown
+ description free_port
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-untagged 1
+ switchport mode trunk
+!
+interface TGigaEthernet0/1
+ description REGO
+ spanning-tree bpdufilter enable
+ spanning-tree guard root
+ switchport trunk vlan-allowed 604-605,615-617,623,1208
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface TGigaEthernet0/2
+ description P2P-BANASREE
+ spanning-tree cost 3000
+ switchport trunk vlan-untagged 999
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description storm-gpon-olt
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 389,639-641,650,999
+ switchport mode trunk
+ storm-control broadcast threshold 5
+ storm-control multicast threshold 5
+ storm-control unicast threshold 5
+!
+interface TGigaEthernet0/4
+ description FROM-COLO-BAHON
+ aggregator-group 1 mode lacp
+ switchport trunk vlan-untagged 999
+ switchport mode trunk
+ switchport pvid 999
+!
+interface VLAN176
+ description nrb-nx-2-gul-sw-peering
+ ip address 172.16.191.18 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN178
+ description gul-sw-2-bonosree-sw-peering
+ ip address 172.16.191.25 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN604
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN605
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN901
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.18 255.255.255.0
+ no ip directed-broadcast
+!
+interface VLAN3310
+ no ip address
+ no ip directed-broadcast
+!
+!
+!
+vlan 30
+ name tirzok
+!
+vlan 176
+ name nrb-nx-2-gul-sw-peering
+!
+vlan 178
+ name gul-sw-2-shodesh-sw-peering
+!
+vlan 555
+ name bdcalling-mohakhali
+!
+vlan 604
+ name REGO
+!
+vlan 623
+ name rego-data
+!
+vlan 641
+ name storm-641
+!
+vlan 901
+ name xp-galaxy-data
+!
+vlan 999
+ name management
+!
+vlan 1,5-6,9,11-15,20,30,127-128,130,132,176-180,182-186,192,202,204-205,210,212
+vlan 218,234,260-261,284,290,306,311,315-316,332,335-336,342,356,360-361,370,389
+vlan 390,400,406,410,436,456,470,493,501,510,550,555-556,570,604-605,615-618,623
+vlan 626-628,630,639-641,720,817-824,861-864,901,999,1208,1464,1521,2377,2602,2909
+vlan 2910-2912,2921-2924,3221
+!
+ loopback-detection
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.83 255.255.255.255 area 0.0.0.0
+ network 172.16.191.16 255.255.255.252 area 0.0.0.0
+ network 172.16.191.24 255.255.255.252 area 0.0.0.0
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+ip http language english
+ip http server
+!
+!
+snmp-server community 0 xpress.secret RO
+snmp-server community 0 datakoi RO
+snmp-server contact X-Press_Technologies_Ltd.<care@xpress.ltd>
+!
+line vty 0 4
+ exec-timeout 3600
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+Gulshan-POP#

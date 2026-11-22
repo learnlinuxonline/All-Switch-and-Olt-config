@@ -1,0 +1,603 @@
+BDCOM-OLT#      show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 10.1.0F build 103950
+service timestamps log date
+service timestamps debug date
+logging buffered 4096
+!
+hostname BDCOM-OLT
+port-protected 1
+!
+!
+!
+!
+ip default-gateway 172.31.10.1
+!
+!
+spanning-tree mode rstp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default none
+aaa authorization exec default local
+!
+username admin password 0 admin
+username sumon password 0 01711057770
+!
+
+epon auto-clear-onu-lost enable
+epon onu-lost-time 120
+epon oam-version 1 0x30
+epon oam-version 2 0x21
+epon oam-version 3 0x20
+!
+!!slot 0 89 unknow CARD
+interface GigaEthernet0/1
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/2
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/3
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/4
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/5
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface GigaEthernet0/6
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+!
+interface EPON0/1
+ epon bind-onu mac 4cf9.fa29.11c4 1
+ epon bind-onu mac a07f.1007.193c 2
+ epon bind-onu mac a07f.0832.1132 3
+ epon bind-onu mac a28d.0510.5130 4
+ epon bind-onu mac bc60.6b71.6000 5
+ epon bind-onu mac 4cae.1c7e.c860 6
+ epon bind-onu mac a28d.111a.29f0 7
+ epon bind-onu mac 80d4.a528.9bdf 8
+ epon bind-onu mac 80d4.a563.933f 9
+ epon bind-onu mac 38d4.a584.88af 10
+ epon bind-onu mac a07e.1230.1606 11
+ epon bind-onu mac a07d.0606.0700 12
+ epon bind-onu mac a07f.1007.2002 13
+ epon bind-onu mac a07f.1007.106c 14
+ epon bind-onu mac c07e.40db.90a1 15
+ epon bind-onu mac a28d.0510.e870 16
+ epon bind-onu mac 00d3.9e42.d8e8 17
+ epon bind-onu mac a07f.1007.1306 18
+ epon bind-onu mac 00d3.9e21.051a 19
+ epon bind-onu mac a07f.1007.059e 20
+ epon bind-onu mac a07e.0831.26da 22
+ epon bind-onu mac a07e.1230.017e 23
+ epon bind-onu mac a24f.0608.e730 24
+ epon bind-onu mac a07f.1007.12e2 25
+ epon bind-onu mac a07f.0832.11a4 26
+ epon bind-onu mac a23e.0923.f0b0 27
+ epon bind-onu mac 48ad.084c.1ab3 28
+ epon bind-onu mac e868.1914.341f 29
+ epon bind-onu mac e0e8.e63c.96f8 30
+ epon bind-onu mac b07c.1020.6dd8 31
+ epon bind-onu mac a07f.0832.2ddc 32
+ epon bind-onu mac a07f.0832.11b6 33
+ epon bind-onu mac c07e.40db.9485 34
+ epon bind-onu mac 00d3.9e42.d936 35
+ epon bind-onu mac 0055.b121.79a2 36
+ epon bind-onu mac 00d3.9e30.2efc 37
+ epon bind-onu mac a07f.1007.6f70 38
+ epon bind-onu mac 00d3.9e21.05b0 39
+ epon bind-onu mac 4cf9.a263.1a60 40
+ epon bind-onu mac 00d3.9f50.0e64 41
+ epon bind-onu mac 00d3.9e20.7164 42
+ epon bind-onu mac 00d3.9e42.dc78 43
+ epon bind-onu mac a26e.0817.1d10 45
+ epon bind-onu mac a07f.0832.1d6e 46
+ epon bind-onu mac a07e.1230.131e 47
+ epon bind-onu mac a07e.1112.465c 48
+ epon bind-onu mac a24f.a081.1e58 50
+ epon bind-onu mac 00d3.9e42.e032 51
+ epon bind-onu mac a24f.b203.b108 52
+ epon bind-onu mac 4cd7.c8dc.0fae 54
+ epon bind-onu mac ac12.8e90.b67d 55
+ epon bind-onu mac 6c68.a4c4.90fd 56
+ epon bind-onu mac 9845.62d8.fc1c 57
+ epon bind-onu mac 9845.62d8.fb6f 58
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+!
+interface EPON0/1:1
+!
+interface EPON0/1:2
+!
+interface EPON0/1:3
+!
+interface EPON0/1:4
+!
+interface EPON0/1:5
+!
+interface EPON0/1:6
+!
+interface EPON0/1:7
+!
+interface EPON0/1:8
+!
+interface EPON0/1:9
+!
+interface EPON0/1:10
+!
+interface EPON0/1:11
+!
+interface EPON0/1:12
+!
+interface EPON0/1:13
+!
+interface EPON0/1:14
+!
+interface EPON0/1:15
+!
+interface EPON0/1:16
+!
+interface EPON0/1:17
+!
+interface EPON0/1:18
+!
+interface EPON0/1:19
+!
+interface EPON0/1:20
+!
+interface EPON0/1:22
+!
+interface EPON0/1:23
+!
+interface EPON0/1:24
+!
+interface EPON0/1:25
+!
+interface EPON0/1:26
+!
+interface EPON0/1:27
+!
+interface EPON0/1:28
+!
+interface EPON0/1:29
+!
+interface EPON0/1:30
+!
+interface EPON0/1:31
+!
+interface EPON0/1:32
+!
+interface EPON0/1:33
+!
+interface EPON0/1:34
+!
+interface EPON0/1:35
+!
+interface EPON0/1:36
+!
+interface EPON0/1:37
+!
+interface EPON0/1:38
+!
+interface EPON0/1:39
+!
+interface EPON0/1:40
+!
+interface EPON0/1:41
+!
+interface EPON0/1:42
+!
+interface EPON0/1:43
+!
+interface EPON0/1:45
+!
+interface EPON0/1:46
+!
+interface EPON0/1:47
+!
+interface EPON0/1:48
+!
+interface EPON0/1:50
+!
+interface EPON0/1:51
+!
+interface EPON0/1:52
+!
+interface EPON0/1:54
+!
+interface EPON0/1:55
+!
+interface EPON0/1:56
+!
+interface EPON0/1:57
+!
+interface EPON0/1:58
+!
+interface EPON0/2
+ epon bind-onu mac a07f.1007.12e8 1
+ epon bind-onu mac a28d.1119.9eb0 2
+ epon bind-onu mac a28d.1119.7e20 3
+ epon bind-onu mac a28d.0510.d2b0 4
+ epon bind-onu mac a28d.0830.3590 5
+ epon bind-onu mac a07f.0811.13a2 6
+ epon bind-onu mac a28d.0510.f6c0 7
+ epon bind-onu mac 8007.1b25.2e98 8
+ epon bind-onu mac a07f.0832.1156 9
+ epon bind-onu mac a07f.1007.09c4 10
+ epon bind-onu mac a07e.1221.5f90 11
+ epon bind-onu mac a07f.0832.289c 12
+ epon bind-onu mac a07f.0832.1690 13
+ epon bind-onu mac e4a8.b601.817b 14
+ epon bind-onu mac 4cd7.c8e3.510c 15
+ epon bind-onu mac c07e.40db.67cd 16
+ epon bind-onu mac 7830.3b2f.7425 17
+ epon bind-onu mac 00d3.9e02.0e1c 18
+ epon bind-onu mac a07d.0213.0580 19
+ epon bind-onu mac a07f.1007.047e 20
+ epon bind-onu mac a28d.1229.51e0 21
+ epon bind-onu mac 00d3.9e64.a292 22
+ epon bind-onu mac 00d3.9e41.4f9a 23
+ epon bind-onu mac 00d3.9e42.c0ca 24
+ epon bind-onu mac a07d.0801.4054 25
+ epon bind-onu mac a28d.1119.3120 26
+ epon bind-onu mac a28d.0830.5520 27
+ epon bind-onu mac 80d4.a529.c65f 28
+ epon bind-onu mac a07f.0832.3010 29
+ epon bind-onu mac 00d3.9f50.09d8 30
+ epon bind-onu mac 702e.220a.7a6c 31
+ epon bind-onu mac 745a.ad1f.759f 32
+ epon bind-onu mac a28c.0730.7c20 33
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+!
+interface EPON0/2:1
+!
+interface EPON0/2:2
+!
+interface EPON0/2:3
+!
+interface EPON0/2:4
+!
+interface EPON0/2:5
+!
+interface EPON0/2:6
+!
+interface EPON0/2:7
+!
+interface EPON0/2:8
+!
+interface EPON0/2:9
+!
+interface EPON0/2:10
+!
+interface EPON0/2:11
+!
+interface EPON0/2:12
+!
+interface EPON0/2:13
+!
+interface EPON0/2:14
+!
+interface EPON0/2:15
+!
+interface EPON0/2:16
+!
+interface EPON0/2:17
+!
+interface EPON0/2:18
+!
+interface EPON0/2:19
+!
+interface EPON0/2:20
+!
+interface EPON0/2:21
+!
+interface EPON0/2:22
+!
+interface EPON0/2:23
+!
+interface EPON0/2:24
+!
+interface EPON0/2:25
+!
+interface EPON0/2:26
+!
+interface EPON0/2:27
+!
+interface EPON0/2:28
+!
+interface EPON0/2:29
+!
+interface EPON0/2:30
+!
+interface EPON0/2:31
+!
+interface EPON0/2:32
+!
+interface EPON0/2:33
+!
+interface EPON0/3
+ epon bind-onu mac 0018.93a5.4cb0 1
+ epon bind-onu mac 4cae.1c7e.a6e0 2
+ epon bind-onu mac c07e.40db.7ceb 3
+ epon bind-onu mac 702e.220a.da9d 4
+ epon bind-onu mac 00d5.9e85.696c 5
+ epon bind-onu mac 00d3.9f50.0daa 6
+ epon bind-onu mac 80d4.a554.0f1f 7
+ epon bind-onu mac c07e.40db.8a23 8
+ epon bind-onu mac a07f.0832.1c78 9
+ epon bind-onu mac a07f.1007.1066 10
+ epon bind-onu mac a07f.0832.26e0 11
+ epon bind-onu mac 00d3.9e30.001d 12
+ epon bind-onu mac a07d.0316.6700 13
+ epon bind-onu mac a07f.1007.0958 14
+ epon bind-onu mac a07f.0832.0b02 15
+ epon bind-onu mac a07f.1007.592c 16
+ epon bind-onu mac a07f.0832.0652 17
+ epon bind-onu mac c07e.40db.7cb5 18
+ epon bind-onu mac a07f.a090.3580 19
+ epon bind-onu mac b07c.1015.16c0 20
+ epon bind-onu mac a24f.092b.7730 21
+ epon bind-onu mac 9845.62d8.fd3f 22
+ epon bind-onu mac 00d3.9e42.e0c2 23
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+!
+interface EPON0/3:1
+!
+interface EPON0/3:2
+!
+interface EPON0/3:3
+!
+interface EPON0/3:4
+!
+interface EPON0/3:5
+!
+interface EPON0/3:6
+!
+interface EPON0/3:7
+!
+interface EPON0/3:8
+!
+interface EPON0/3:9
+!
+interface EPON0/3:10
+!
+interface EPON0/3:11
+!
+interface EPON0/3:12
+!
+interface EPON0/3:13
+!
+interface EPON0/3:14
+!
+interface EPON0/3:15
+!
+interface EPON0/3:16
+!
+interface EPON0/3:17
+!
+interface EPON0/3:18
+!
+interface EPON0/3:19
+!
+interface EPON0/3:20
+!
+interface EPON0/3:21
+!
+interface EPON0/3:22
+!
+interface EPON0/3:23
+!
+interface EPON0/4
+ epon bind-onu mac f84a.bf38.9ae7 1
+ epon bind-onu mac a23e.0616.2c70 2
+ epon bind-onu mac a28f.0832.58b0 3
+ epon bind-onu mac 3400.a39e.7525 4
+ epon bind-onu mac a28d.0510.e290 5
+ epon bind-onu mac a07e.1230.2fe6 6
+ epon bind-onu mac a23e.0616.2a00 7
+ epon bind-onu mac 7820.515e.15ff 8
+ epon bind-onu mac a28d.0328.4e60 9
+ epon bind-onu mac a28d.1119.c120 10
+ epon bind-onu mac 30f3.3554.1910 11
+ epon bind-onu mac a28d.0328.0590 12
+ epon bind-onu mac 8246.0703.4180 13
+ epon bind-onu mac 7054.f5c2.e5ec 14
+ epon bind-onu mac a28d.1119.6070 15
+ epon bind-onu mac 70b6.4fb3.a238 16
+ epon bind-onu mac a07e.1230.1738 17
+ epon bind-onu mac 9845.622f.acf0 19
+ epon bind-onu mac 9845.62f7.3a76 20
+ epon bind-onu mac bc60.6b71.06d2 21
+ epon bind-onu mac 00d3.9e1d.8568 22
+ epon bind-onu mac c07e.40b3.487e 23
+ epon bind-onu mac a07f.0832.1d2c 24
+ epon bind-onu mac c07e.40db.7cc7 25
+ epon bind-onu mac b07c.1020.3250 26
+ epon bind-onu mac 00d3.9e42.de8e 27
+ epon bind-onu mac a07f.1007.2008 28
+ epon bind-onu mac a07f.1007.2a58 29
+ epon bind-onu mac a07e.0831.269e 30
+ epon bind-onu mac a28d.0511.2180 31
+ epon bind-onu mac 006d.618f.11c8 32
+ epon bind-onu mac a28d.1119.41a0 33
+ epon bind-onu mac a24f.0608.e720 34
+ epon bind-onu mac 00d5.be71.1ece 35
+ epon bind-onu mac a07f.0832.1d20 36
+ epon bind-onu mac 5804.4fc5.1bf7 37
+ epon bind-onu mac a23e.0123.1dd0 38
+ epon bind-onu mac 9845.62d8.fb7e 39
+ epon bind-onu mac 00d5.9ea5.008e 40
+ epon bind-onu mac a07f.1007.1078 41
+ epon bind-onu mac a24f.0106.e890 42
+ epon bind-onu mac a07f.1007.20f8 43
+ epon bind-onu mac a07e.0831.33f4 44
+ epon bind-onu mac a28e.0222.2b20 46
+ epon bind-onu mac a07f.1007.065e 47
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+!
+interface EPON0/4:1
+!
+interface EPON0/4:2
+!
+interface EPON0/4:3
+!
+interface EPON0/4:4
+!
+interface EPON0/4:5
+!
+interface EPON0/4:6
+!
+interface EPON0/4:7
+!
+interface EPON0/4:8
+!
+interface EPON0/4:9
+!
+interface EPON0/4:10
+!
+interface EPON0/4:11
+!
+interface EPON0/4:12
+!
+interface EPON0/4:13
+!
+interface EPON0/4:14
+!
+interface EPON0/4:15
+!
+interface EPON0/4:16
+!
+interface EPON0/4:17
+!
+interface EPON0/4:19
+!
+interface EPON0/4:20
+!
+interface EPON0/4:21
+!
+interface EPON0/4:22
+!
+interface EPON0/4:23
+!
+interface EPON0/4:24
+!
+interface EPON0/4:25
+!
+interface EPON0/4:26
+!
+interface EPON0/4:27
+!
+interface EPON0/4:28
+!
+interface EPON0/4:29
+!
+interface EPON0/4:30
+!
+interface EPON0/4:31
+!
+interface EPON0/4:32
+!
+interface EPON0/4:33
+!
+interface EPON0/4:34
+!
+interface EPON0/4:35
+!
+interface EPON0/4:36
+!
+interface EPON0/4:37
+!
+interface EPON0/4:38
+!
+interface EPON0/4:39
+!
+interface EPON0/4:40
+!
+interface EPON0/4:41
+!
+interface EPON0/4:42
+!
+interface EPON0/4:43
+!
+interface EPON0/4:44
+!
+interface EPON0/4:46
+!
+interface EPON0/4:47
+!
+!!slot end
+!
+interface VLAN1
+ ip address 172.31.10.2 255.255.255.0
+!
+!
+!
+vlan 1
+!
+!
+!
+!
+!
+!
+!
+ip http server
+!
+!
+!
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+BDCOM-OLT#

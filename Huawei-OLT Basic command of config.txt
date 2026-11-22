@@ -1,0 +1,152 @@
+ sysname Barishal-Huawei-OLT
+
+erminal user name buildrun_new_password root *j$1b$oWw|:7qqu4$.o@_V8fEn0nRNm( ih.CJQvX6/xi>(Q^IOm=BuHDO$* 7 0000:00:00:00:00:00 0000:00:00:00:00:00 root 1
+first-login-info 0 "-----"
+ terminal user name buildrun_new_password xpress-noc *~kc$1b$@L>f;0>>a8$*;/4R&
+F0S!l<_"">rTlY'ilU3El`4PXdZ(X-RAzP$* 0 2026:08:13:14:44:07 2026:08:13:14:44:07  root 2 first-login-info 0 "th"
+ terminal user name buildrun_new_password xnms-noc *~kc$1b$**<m,NL/H!$,rP\X/>rL(t_q<!eI,2I<#'rH_!c.GM7O7.//vx8$* 0 2026:08:16:14:37:59 2026:08:16:14:37:59 root 3 first-login-info 0 "th"
+ terminal user name buildrun_new_password farhad-xpress *~kc$1b$)-xf;SQpA8$U$*
+pRn=4[1iz%bK2:N`RJ<tb7wpg7UAy+/7}WWC"$* 0 2026:08:17:16:36:24
+2026:08:17:16:36:24 root 4 first-login-info 0 "th"
+
+
+ dba-profile add profile-id 10 profile-name "dba-profile_10" type4 max 1024000
+ dba-profile add profile-id 11 profile-name "DBA_FTTH_4" type4 max 1024000
+ dba-profile add profile-id 13 profile-name "dba-profile_13" type4 max 1024000
+ ont-srvprofile gpon profile-id 10 profile-name "srv-profile_10"
+  ont-port pots adaptive 32 eth adaptive 8
+  ring check enable
+  ring check resume-interval 120
+  commit
+ ont-srvprofile gpon profile-id 13 profile-name "Gpon-Srv-Profile-13"
+  ont-port pots adaptive 32 eth adaptive 8
+  commit
+ ont-lineprofile gpon profile-id 0 profile-name "line-profile_default_0"
+  tcont 0 dba-profile-id 2
+  tcont 1 dba-profile-id 0
+  commit
+  quit
+ ont-lineprofile gpon profile-id 10 profile-name "line-profile_10"
+  tr069-management ip-index 1
+  tcont 1 dba-profile-id 10
+  commit
+  quit
+ ont-lineprofile gpon profile-id 13 profile-name "Gpon-Line-Profile-13"
+  tr069-management ip-index 1
+  mapping-mode port
+  tcont 1 dba-profile-id 13
+  gem add 1 eth tcont 1
+  gem mapping 1 0 eth 1
+  commit
+  quit
+#
+
+[device-config]
+  <device-config>
+ board add 0/0 H805GPFD
+ board add 0/1 H805GPFD
+ board add 0/8 H801X2CS
+
+[vlan-config]
+  <vlan-config>
+ vlan 41 to 42 smart
+ vlan 400 to 408 smart
+ vlan 825 to 832 smart
+ vlan 865 to 868 smart
+ vlan 999 smart
+ port vlan 41 to 42 0/6 0
+ port vlan 41 to 42 0/8 0
+ port vlan 400 to 408 0/6 0
+ port vlan 400 to 408 0/8 0
+ port vlan 400 to 408 0/8 1
+ port vlan 825 to 832 0/6 0
+ port vlan 825 to 832 0/8 0
+ port vlan 825 to 832 0/8 1
+ port vlan 865 to 868 0/6 0
+ port vlan 865 to 868 0/8 0
+ port vlan 865 to 868 0/8 1
+ port vlan 999 0/8 1
+#
+
+[gpon]
+  <gpon-0/0>
+ interface gpon 0/0
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+
+
+ ont add 0 0 sn-auth "485755444F814211" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "suraiya4225"
+ ont add 0 1 sn-auth "485755444FF8BE34" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "rafiul3920"
+ ont add 0 2 sn-auth "485755444F2A7BDE" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "mizanur5758"
+ ont add 0 3 sn-auth "485755444F3ABB76" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "kawser4144"
+ ont add 0 4 sn-auth "485755444F2DDC20" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "imran3973"
+ ont add 0 5 sn-auth "485755444F398467" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "anwar5363"
+ ont add 0 6 sn-auth "485755444FD929D2" omci ont-lineprofile-id 10
+ont-srvprofile-id 10 desc "tarikul8476"
+ ont add 0 8 sn-auth "485755444F96B884" omci ont-lineprofile-id 10
+ont-srvprofile-id 0 desc "ilham9910"
+
+ <gpon-0/1>
+ interface gpon 0/1
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+
+[vlanif]
+  <vlanif1>
+interface vlanif1
+ ip address 172.27.173.58 255.255.255.252
+
+
+[meth]
+  <meth0>
+interface meth0
+ ip address 10.11.104.2 255.255.255.0
+#
+
+
+[post-system]
+  <post-system>
+ip route-static 0.0.0.0 0.0.0.0 172.27.173.57
+ ntp-service server disable
+ ntp-service ipv6 server disable
+ ntp-service unicast-server 103.43.148.148
+ ntp-service unicast-server 10.160.4.9
+ ssh user root authentication-type password
+ ssh user xpress-noc authentication-type password
+ ssh user xnms-noc authentication-type password
+ ssh user farhad-xpress authentication-type password
+

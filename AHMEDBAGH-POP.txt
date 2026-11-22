@@ -1,0 +1,304 @@
+
+
+
+
+
+
+                 Welcome to BDCOM S2928F Ethernet Switch
+
+
+
+
+
+AHMEDBAGH-POP>en
+enable  english  enter
+AHMEDBAGH-POP>enable
+password:
+AHMEDBAGH-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0C build 108394
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging source-interface VLAN999
+logging 10.5.49.6
+logging 10.160.1.23
+logging 10.160.4.11
+logging buffered 4096
+logging trap debugging
+!
+error-disable-recovery 60
+!
+hostname AHMEDBAGH-POP
+vlan disable-learning 1
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+localauthor Limited
+ exec privilege default 8
+!
+username xpress-noc password 7 013f33355b077f160b0a
+username ahsan password 7 01493c4a6006031d17
+username care author-group Limited password 7 012809121a33244d49362d52
+!
+enable password 7 010a7a095a0503 level 15
+!
+!
+!
+!
+interface Port-aggregator1
+ switchport trunk vlan-allowed 615-618,999
+ switchport mode trunk
+ switchport pvid 999
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.88 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ description TO-OLT-G1
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 5
+ storm-control multicast threshold 5
+ storm-control unicast threshold 5
+!
+interface GigaEthernet0/2
+ description TO-OLT-G2
+ switchport mode dot1q-tunnel-uplink
+ storm-control broadcast threshold 5
+ storm-control multicast threshold 5
+ storm-control unicast threshold 5
+!
+interface GigaEthernet0/3
+ shutdown
+!
+interface GigaEthernet0/4
+ description GR-STORM-BACKUP
+ switchport mode trunk
+ keepalive
+!
+interface GigaEthernet0/5
+ shutdown
+!
+interface GigaEthernet0/6
+ description Electricity-Monitor
+ switchport mode trunk
+!
+interface GigaEthernet0/7
+ shutdown
+!
+interface GigaEthernet0/8
+ shutdown
+!
+interface GigaEthernet0/9
+ shutdown
+!
+interface GigaEthernet0/10
+ shutdown
+!
+interface GigaEthernet0/11
+ shutdown
+!
+interface GigaEthernet0/12
+ shutdown
+!
+interface GigaEthernet0/13
+ shutdown
+!
+interface GigaEthernet0/14
+ shutdown
+!
+interface GigaEthernet0/15
+ shutdown
+!
+interface GigaEthernet0/16
+ shutdown
+!
+interface GigaEthernet0/17
+ shutdown
+!
+interface GigaEthernet0/18
+ shutdown
+!
+interface GigaEthernet0/19
+ shutdown
+!
+interface GigaEthernet0/20
+ shutdown
+!
+interface GigaEthernet0/21
+ description XTL-KALIBARI-BKUP
+ switchport trunk vlan-allowed 147-154,999
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/22
+ switchport mode trunk
+!
+interface GigaEthernet0/23
+ switchport mode trunk
+!
+interface GigaEthernet0/24
+ switchport mode trunk
+!
+interface TGigaEthernet1/1
+ description P2P-EHL
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+ no fiber-auto-config
+!
+interface TGigaEthernet1/2
+ description P2P-MADARTEK
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet1/3
+ description P2P-MANIKNAGAR
+ switchport mode trunk
+!
+interface TGigaEthernet1/4
+ description TO-POP-MKT
+ switchport mode dot1q-tunnel-uplink
+!
+interface VLAN130
+ description ahmadbag.pop-2-manda.rtr
+ ip address 172.16.190.57 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN184
+ description md.pop-2-ahmedbag-sw
+ ip address 172.16.191.53 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN185
+ description ehl-nx-2-ahmed-pop-sw
+ ip address 172.16.191.57 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN239
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.7 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 184
+ name md.pop-2-ahmedbag-sw
+!
+vlan 185
+ name ehl-nx-2-ahmed-pop-sw
+!
+vlan 330
+ name GR-STORM-NET
+!
+vlan 901
+ name galaxy
+!
+vlan 999
+ name mgm-vlan
+!
+vlan 1,5,9,15,51,127-128,130,132,147-154,176-180,182,184-186,192,202,204-205,209-211,218,231-232,234,239,260-26
+1,263,282,284,290
+vlan 306,308,311,315-316,321-322,327-328,330,332,335-336,342,351,356,360-361,370,389-390,400,406-407,410,419,43
+6,456,466,470-471,488
+vlan 493,501,510,528,550,556,570,604,615-618,628,630,639-640,720,722,751,782,861-864,873-876,881-884,901,999,10
+01-1008,1701-1704
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.88 255.255.255.255 area 0.0.0.0
+ network 172.16.191.52 255.255.255.252 area 0.0.0.0
+ network 172.16.191.56 255.255.255.252 area 0.0.0.0
+ network 172.16.190.56 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route max-number 200
+ip route default 172.27.172.1
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http language english
+ip http server
+!
+!
+!
+snmp-server community 0 xpress.secret RO
+snmp-server community 0 datakoi RO
+snmp-server contact X-Press_Technologies_Ltd.<care@xpress.ltd>
+snmp-server location Wari_PoP[23.719984,90.418627],Dhaka,BD
+!
+line vty 0 4
+ exec-timeout 3600
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 103.43.148.148
+ntp server 10.160.4.9
+ntp client enable
+!
+!
+!Pending configurations for absent linecards:
+!
+!Pending configurations for global:
+!
+ddm enable
+!
+
+AHMEDBAGH-POP#

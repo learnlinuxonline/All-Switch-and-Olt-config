@@ -1,0 +1,217 @@
+                Welcome to BDCOM S2900-2T10X Ethernet Switch
+
+
+
+
+
+AGILA-POP>enable
+password:
+AGILA-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+!
+error-disable-recovery 30
+!
+!
+hostname AGILA-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username rifat password 7 1151393542637a1a0d1b
+username xpress-noc password 7 114d3f3215286e1a081b
+!
+enable password 7 11180706142671 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.91 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+!
+interface GigaEthernet0/2
+!
+interface TGigaEthernet0/1
+ description P2P-BBC
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/2
+ description P2P-WARI
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description RD-NET
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 243,264-266,317,364,464,745,764
+ switchport trunk vlan-untagged 1
+!
+interface TGigaEthernet0/4
+ description BSMAT
+ switchport mode trunk
+ switchport trunk vlan-allowed 314,329,343,443,543
+ switchport trunk vlan-untagged 243
+ switchport pvid 243
+!
+interface TGigaEthernet0/5
+ description XTL-FARIDABAD
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 11-14,221,323,325
+ switchport trunk vlan-untagged 1
+ no fiber-auto-config
+ speed 1000
+ storm-control broadcast threshold 5
+!
+interface TGigaEthernet0/6
+!
+interface TGigaEthernet0/7
+!
+interface TGigaEthernet0/8
+!
+interface TGigaEthernet0/9
+!
+interface TGigaEthernet0/10
+!
+interface VLAN1
+ shutdown
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN191
+ description wari-2-rd.net
+ ip address 172.16.191.81 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN192
+ description rd.pop-2-bbc.pop.sw
+ ip address 172.16.191.85 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.102 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 1-2,4-6,10-14,100-108,110,112,120-125,127-128,130-132,170-173,176-180,182
+vlan 183-186,190-192,202,204-206,208,211,213,218,221-222,231-232,237-238,243-244,247
+vlan 249,251-252,262,265-266,282,293,301-310,314-315,317,319,321-326,328,330,332
+vlan 333,335-340,342-343,345,349,351,356,360-362,364,370,373,382,389-390,398-400,406
+vlan 407,415,419,421-422,428,433,437-438,443,449,451,462,464-465,503,515,528,533
+vlan 543,606-607,621-628,640-644,671-690,720,722,725-728,745-746,751,782,809-850,865
+vlan 866-868,877-880,888,999-1008,1375,1520-1525,1530,1611,1614,2909-2912,2921
+vlan 2924
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.91 255.255.255.255 area 0.0.0.0
+ network 172.16.191.80 255.255.255.252 area 0.0.0.0
+ network 172.16.191.84 255.255.255.252 area 0.0.0.0
+ network 172.16.190.32 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http language english
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO R0
+snmp-server contact rifat@xpress.ltd
+snmp-server location Laxmibazar[23.708473,90.415031],Dhaka,BD
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+mqtt client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+AGILA-POP# exit
+AGILA-POP>

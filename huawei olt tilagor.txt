@@ -1,0 +1,2038 @@
+SYL-TILAGHOR-HUAWEI#display current-configuration
+{ <cr>|ont<K>|port<K>|section<K>|service-port<K>|simple<K>||<K> }:
+
+  Command:
+          display current-configuration
+[Active: H802SCUN; Standby: --]
+[Patch Info: SPH210]
+[MA5600V800R018: 8500]
+#
+[sysmode]
+  <sysmode>
+ switch adsl mode to rfc2662 vdsl mode to tr129
+ xpon mode switch-to profile-mode
+ voice-spec set vag-num 8
+ protocol support h248
+ system ex-mode backup
+ system workscene msan
+ router mode basic
+#
+[global-config]
+  <global-config>
+ sysname SYL-TILAGHOR-HUAWEI
+ terminal user name buildrun_new_password root *********************************************************** 7 0000:00:00:00:00:00 0000:00:00:00:00:00 root 1
+first-login-info 0 "-----"
+ terminal user name buildrun_new_password xpress-noc ************************************************************* 0 2026:11:01:18:45:13 2026:11:01:18:45:13
+admin 2 first-login-info 0 "30"
+ terminal user name buildrun_new_password xnms-noc ************************************************************* 0 2026:11:11:19:20:02 2026:11:11:19:20:02 root 3 first-lo                                                                gin-info 0 "20"
+ dba-profile add profile-id 10 profile-name "GPON-DBA" type4 max 1000000
+ dba-profile add profile-id 12 profile-name "DBA_12" type4 max 1024000
+ dba-profile add profile-id 14 profile-name "dba-profile_14" type4 max 1024000
+ dba-profile add profile-id 15 profile-name "dba-profile_15" type4 max 1000000
+ dba-profile add profile-id 20 profile-name "UNLIMITED" type4 max 1000000
+ dba-profile add profile-id 24 profile-name "dba-profile_24" type4 max 1000000
+ dba-profile add profile-id 25 profile-name "EPON-FIXED" type4 max 499968
+ ont-srvprofile epon profile-id 13 profile-name "EPON_SRV_13"
+  ont-port eth 1
+  commit
+ ont-srvprofile epon profile-id 15 profile-name "SrvProfile_15"
+  ont-port pots adaptive 32 eth adaptive 8
+  commit
+ ont-lineprofile epon profile-id 13 profile-name "EPON_LINE_13"
+  llid dba-profile-id 25
+  commit
+ ont-lineprofile epon profile-id 15 profile-name "LineProfile_15"
+  llid dba-profile-id 15
+  commit
+ ont-srvprofile gpon profile-id 10 profile-name "GPON_SRV_10"
+  ont-port eth 1
+  commit
+ ont-srvprofile gpon profile-id 12 profile-name "SRV_12"
+  ont-port eth 1
+  commit
+ ont-srvprofile gpon profile-id 14 profile-name "srv-profile_14"
+  ont-port pots adaptive 32 eth adaptive 8
+  ring check enable
+  ring check resume-interval 120
+  commit
+ ont-lineprofile gpon profile-id 0 profile-name "line-profile_default_0"
+  tcont 0 dba-profile-id 2
+  tcont 1 dba-profile-id 0
+  commit
+  quit
+ ont-lineprofile gpon profile-id 10 profile-name "GPON_LINE_10"
+  tcont 1 dba-profile-id 20
+  gem add 1 eth tcont 1
+  commit
+  quit
+ ont-lineprofile gpon profile-id 12 profile-name "LINE_12"
+  tcont 1 dba-profile-id 12
+  gem add 1 eth tcont 1
+  commit
+  quit
+ ont-lineprofile gpon profile-id 14 profile-name "line-profile_14"
+  tr069-management ip-index 1
+  tcont 1 dba-profile-id 14
+  commit
+  quit
+ ont-lineprofile gpon profile-id 20 profile-name "line-profile-10"
+  quit
+#
+[device-config]
+  <device-config>
+ board add 0/0 H803EPFD
+ board add 0/1 H805GPFD
+ board add 0/8 H801X2CS
+#
+[public-config]
+  <public-config>
+ monitor uplink-port traffic port 0/6/0
+ monitor uplink-port traffic port 0/6/1
+ monitor uplink-port traffic port 0/6/2
+ monitor uplink-port traffic port 0/6/3
+ monitor uplink-port traffic port 0/8/0
+ monitor uplink-port traffic port 0/8/1
+ snmp-agent local-engineid 000007DB03289E97F9F64ABE
+ snmp-agent community read *****************************************************
+***************
+ snmp-agent sys-info contact no
+ snmp-agent sys-info location TILAGHOR-POP
+ snmp-agent sys-info version v2c
+#
+[vlan-config]
+  <vlan-config>
+ vlan 11 to 13 smart
+ vlan 16 smart
+ vlan 21 to 28 smart
+ vlan 61 to 68 smart
+ vlan 90 smart
+ vlan 603 smart
+ vlan 809 to 816 smart
+ vlan 841 to 848 smart
+ vlan 1045 smart
+ port vlan 11 to 13 0/8 0
+ port vlan 11 to 13 0/8 1
+ port vlan 16 0/8 0
+ port vlan 16 0/8 1
+ port vlan 21 to 28 0/8 0
+ port vlan 21 to 28 0/8 1
+ port vlan 61 to 68 0/8 0
+ port vlan 61 to 68 0/8 1
+ port vlan 90 0/8 0
+ port vlan 90 0/8 1
+ port vlan 603 0/8 0
+ port vlan 603 0/8 1
+ port vlan 809 0/6 0
+ port vlan 809 to 816 0/8 0
+ port vlan 809 to 816 0/8 1
+ port vlan 841 to 848 0/8 0
+ port vlan 841 to 848 0/8 1
+ port vlan 1045 0/8 0
+ port vlan 1045 0/8 1
+#
+[gpon]
+  <gpon-0/1>
+ interface gpon 0/1
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+#
+[epon]
+  <epon-0/0>
+ interface epon 0/0
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+ ont add 0 0 mac-auth 049F-CAC4-472B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 1 mac-auth 1051-72B5-6A4B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 2 mac-auth 384C-4F7B-822B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 3 mac-auth 384C-4FE5-B959 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 4 mac-auth 6012-3C02-BC97 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 5 mac-auth 6012-3C02-EEC0 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 6 mac-auth 7488-2A3E-8BEE oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 7 mac-auth 7488-2A43-BBE8 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 8 mac-auth 7488-2A4B-405B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 9 mac-auth 7488-2A91-D63D oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 10 mac-auth 8014-A8F4-DE28 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 11 mac-auth 8479-73FB-3D3A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 12 mac-auth A07E-0700-1C91 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 13 mac-auth A07E-9B08-45DD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 14 mac-auth AC61-7538-AF63 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 15 mac-auth B4B0-550A-7C6B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 16 mac-auth B4B0-550B-BC40 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 17 mac-auth B4B0-55A6-95D3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 18 mac-auth B4B0-55F0-4D23 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 19 mac-auth B4FB-F9D3-6395 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 20 mac-auth BC62-0E23-8615 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 21 mac-auth C470-0B93-0650 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 22 mac-auth C88D-8317-5577 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 23 mac-auth E42D-7B0C-868F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 24 mac-auth E42D-7B3D-B60F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 25 mac-auth E42D-7BCC-1F0F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 26 mac-auth E868-1911-CB2A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 27 mac-auth E868-1917-3C14 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 0 28 mac-auth E868-191C-60A7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 0 mac-auth 6012-3C01-1B57 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 1 mac-auth 6012-3C01-E99B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 2 mac-auth 7488-2A41-261E oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 3 mac-auth 74A0-63C3-5E30 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 4 mac-auth A07E-0700-2E25 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 5 mac-auth E42D-7B05-5CCF oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 6 mac-auth E42D-7B0C-4CFF oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 7 mac-auth E42D-7B1B-4BDF oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 1 8 mac-auth E42D-7B3D-F48F oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 0 mac-auth 249E-AB66-EE38 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 1 mac-auth 24BC-F8D3-83DD oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 2 mac-auth 3CF8-08EF-0088 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 3 mac-auth 6012-3C01-C9DC oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 4 mac-auth 6012-3C02-62F6 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 5 mac-auth 6012-3C02-CC1D oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 6 mac-auth 6012-3C02-F6C3 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 7 mac-auth 601C-A96E-C2A0 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 8 mac-auth 601C-AC10-FD0C oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 9 mac-auth 684A-AE74-EC03 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 10 mac-auth 7488-2A46-DB6F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 11 mac-auth 7488-2A54-4B10 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 12 mac-auth 8014-A83C-29C0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 13 mac-auth 8479-73C5-B371 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 14 mac-auth 8479-73ED-3470 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 15 mac-auth AC61-758F-A94E oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 16 mac-auth B4B0-551A-1EB3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 17 mac-auth B4B0-5587-1FA2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 18 mac-auth B4B0-55C9-E15F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 19 mac-auth C070-095F-9C06 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 20 mac-auth C470-0BA9-8270 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 21 mac-auth E42D-7B0C-AB5F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 22 mac-auth E42D-7B3C-692F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 23 mac-auth E42D-7B3D-712F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 24 mac-auth E868-1917-E4F5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 25 mac-auth F848-FD93-317E oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 2 26 mac-auth F8E8-110F-9809 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 0 mac-auth 20F1-7CDB-AC73 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 1 mac-auth 4482-E54E-9A0E oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 2 mac-auth 4CAE-1C01-6996 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 3 mac-auth 6012-3C01-CDB1 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 4 mac-auth 6012-3C02-4660 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 5 mac-auth 6012-3C02-C9C6 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 6 mac-auth 601C-A1B8-15E6 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 7 mac-auth 7488-2A01-368B oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 8 mac-auth 78F5-5749-C066 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 9 mac-auth AC61-758F-95C6 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 10 mac-auth B4B0-5543-FC94 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 11 mac-auth B4B0-55AB-A0AE oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 12 mac-auth B4B0-55C1-8802 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 13 mac-auth B4B0-55F3-5EAC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 14 mac-auth C07E-40A6-E570 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 15 mac-auth C470-0B93-F740 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 16 mac-auth E067-B339-8CF1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 17 mac-auth E42D-7B02-F7BF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 18 mac-auth E868-1913-EE90 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 19 mac-auth E884-C64B-0DC6 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 20 mac-auth F848-FD83-568F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 3 21 mac-auth B4B0-55A2-BF55 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 0 mac-auth 006D-6160-A118 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 1 mac-auth 18C5-8AED-797C oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 2 mac-auth 384C-4F71-4803 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 3 mac-auth 384C-4F87-36A7 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 4 mac-auth 384C-4F9E-9D77 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 5 mac-auth 4455-B16C-F560 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 6 mac-auth 6012-3C01-6B68 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 7 mac-auth 6012-3C01-E9F4 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 8 mac-auth 6012-3C02-5D96 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 9 mac-auth 601C-DF2B-085F oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 10 mac-auth 7488-2A1D-621A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 11 mac-auth 7488-2A50-1684 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 12 mac-auth 7488-2ABA-65DB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 13 mac-auth 7488-2AC5-6925 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 14 mac-auth 7488-2ACC-4B17 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 15 mac-auth 8479-7399-6E50 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 16 mac-auth 8479-73FB-3238 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 17 mac-auth 8479-73FB-3A76 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 18 mac-auth 9C37-F41B-308F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 19 mac-auth A07E-0700-1BCB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 20 mac-auth A07E-0700-2DA7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 21 mac-auth A27E-0801-C000 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 22 mac-auth AC61-758F-506B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 23 mac-auth B4B0-550E-831F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 24 mac-auth B4B0-5539-A5DD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 25 mac-auth B4B0-555B-6A22 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 26 mac-auth B4B0-5574-E301 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 27 mac-auth B4B0-5578-5BB6 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 28 mac-auth B4B0-5586-BB6B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 29 mac-auth B4B0-55B2-F882 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 30 mac-auth C07E-40A6-E44A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 31 mac-auth C470-0B92-E338 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 32 mac-auth C470-0B93-4558 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 33 mac-auth C470-0B93-5540 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 34 mac-auth C470-0B93-67A0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 35 mac-auth C470-0B93-88C0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 36 mac-auth C470-0B93-A218 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 37 mac-auth C470-0B93-A360 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 38 mac-auth C470-0B93-DAA0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 39 mac-auth E42D-7B3C-9B1F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 40 mac-auth E42D-7B3C-D66F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 41 mac-auth E84D-D0EC-9FE8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 42 mac-auth E84D-D0FB-48C7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 43 mac-auth E868-1918-8C83 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 44 mac-auth E868-1918-FEBF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 4 45 mac-auth E868-191C-3983 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 0 mac-auth 006D-6160-7640 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 1 mac-auth 006D-6164-BF68 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 2 mac-auth 006D-6164-C6C8 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 3 mac-auth 049F-CA55-5A7D oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 4 mac-auth 200B-C756-D7D1 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 5 mac-auth 2C58-E835-73D5 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 6 mac-auth 384C-4FE1-591D oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 7 mac-auth 4862-767B-CA39 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 8 mac-auth 48AD-08E9-74A1 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 9 mac-auth 4CAE-1C04-8FF5 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 10 mac-auth 6012-3C01-7840 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 11 mac-auth 6012-3D12-3352 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 12 mac-auth 8014-A84F-EE68 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 13 mac-auth 8014-A8DF-4248 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 14 mac-auth 8479-7399-5F11 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 15 mac-auth 8479-73ED-34D7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 16 mac-auth 8479-73ED-3562 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 17 mac-auth A07E-0700-1871 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 18 mac-auth A27E-0801-AC30 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 19 mac-auth B4B0-551A-E774 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 20 mac-auth B4B0-5525-FE93 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 21 mac-auth B4B0-5582-FC32 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 22 mac-auth B4B0-558C-C25D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 23 mac-auth B4FB-F9D0-94B9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 24 mac-auth B4FB-F9D3-418F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 25 mac-auth B4FB-F9D3-4FD4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 26 mac-auth B4FB-F9D3-5AF3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 27 mac-auth C470-0B93-4A90 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 28 mac-auth C470-0B93-9C70 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 29 mac-auth C470-0BA9-A1A0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 30 mac-auth D46A-A81E-7398 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 31 mac-auth E067-B339-8CD6 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 32 mac-auth E42D-7B1B-661F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 33 mac-auth E42D-7B3C-63FF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 34 mac-auth E42D-7B3D-08AF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 35 mac-auth E84D-D0F2-190B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 36 mac-auth E868-1909-72F2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 5 37 mac-auth E868-1913-FE7F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 0 mac-auth 203D-B2F4-66FC oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 1 mac-auth 244C-0721-82C8 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 2 mac-auth 244C-075A-6BF5 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 3 mac-auth 384C-4FC7-1F1A oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 4 mac-auth 4CAE-1C04-9009 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 5 mac-auth 6012-3C01-04DC oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 6 mac-auth 6012-3C01-185C oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 7 mac-auth 6012-3C02-AE6C oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 8 mac-auth 6012-3C02-E1E1 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 9 mac-auth 601C-5917-607F oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 10 mac-auth 601C-7EF5-6269 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 11 mac-auth 601C-A764-39B1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 12 mac-auth 602C-0AE0-9D26 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 13 mac-auth 602C-2357-48AD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 14 mac-auth 643E-8C6C-EDA1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 15 mac-auth 7488-2A2D-0761 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 16 mac-auth 7488-2AC3-1294 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 17 mac-auth 7488-2ADC-ABC4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 18 mac-auth 8066-290C-33BF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 19 mac-auth AC61-7566-DAE8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 20 mac-auth B4B0-5593-530B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 21 mac-auth B4B0-55BC-D755 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 22 mac-auth B4FB-F9D3-45AC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 23 mac-auth C470-0B93-0F48 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 24 mac-auth E42D-7B05-8AAF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 25 mac-auth E868-1913-A83A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 26 mac-auth E868-1913-DE0D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 27 mac-auth E868-1915-4B98 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 6 28 mac-auth E884-C646-6FB3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 0 mac-auth 2CCF-58ED-DF33 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 1 mac-auth 30F3-351D-24DB oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 2 mac-auth 384C-4FE5-6A30 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 3 mac-auth 384C-4FEB-BA91 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 4 mac-auth 4482-E54E-E5E3 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 5 mac-auth 4CAE-1C01-69FE oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 6 mac-auth 6012-3C01-024A oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 7 mac-auth 6012-3C01-E0B8 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 8 mac-auth 6012-3C02-8C93 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 9 mac-auth 6012-3C02-F34E oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 10 mac-auth 6012-3D12-16CE oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 11 mac-auth 6012-3D12-45EC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 12 mac-auth 601C-0A46-3141 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 13 mac-auth 601C-0F54-888A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 14 mac-auth 601C-7957-4631 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 15 mac-auth 7488-2ACE-EF90 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 16 mac-auth 78F5-5756-090A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 17 mac-auth 8014-A83C-4968 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 18 mac-auth 8014-A84F-EE58 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 19 mac-auth 8479-7399-57AD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 20 mac-auth 8479-73C5-D3A5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 21 mac-auth 8479-73ED-3479 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 22 mac-auth 8479-73FB-291D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 23 mac-auth 8479-73FB-486D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 24 mac-auth 9C37-F458-9C9D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 25 mac-auth A07E-0700-1AF9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 26 mac-auth A07E-0700-2DF5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 27 mac-auth A27E-0801-B7D0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 28 mac-auth AC61-75A8-A18E oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 29 mac-auth B4B0-55E6-6906 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 30 mac-auth B4B0-55F9-8A59 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 31 mac-auth C447-3FA7-955B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 32 mac-auth C470-0B93-3BC0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 33 mac-auth C470-0B93-5C10 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 34 mac-auth C470-0B93-6050 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 35 mac-auth C470-0B93-BA00 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 36 mac-auth C470-0B93-F938 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 37 mac-auth C470-0BAA-2800 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 38 mac-auth E42D-7B0C-B5AF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 39 mac-auth E868-1909-9892 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 40 mac-auth E868-1911-63AC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 41 mac-auth E868-1911-CCA9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 42 mac-auth E868-1913-140C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 43 mac-auth E868-1913-FA11 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 44 mac-auth E868-1917-CBD7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 45 mac-auth E868-191C-A126 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 7 46 mac-auth 601C-2761-E831 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 0 mac-auth 4CAE-1C04-8FF3 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 1 mac-auth 6012-3C01-EF19 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 2 mac-auth 6012-3C01-F91F oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 3 mac-auth 6012-3C02-9865 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 4 mac-auth 601C-831D-F51E oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 5 mac-auth 7488-2A69-6881 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 6 mac-auth 7488-2AC6-077D oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 7 mac-auth 78F5-575B-4097 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 8 mac-auth 8014-A8F4-DD80 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 9 mac-auth 8479-7399-5805 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 10 mac-auth 9017-ACC3-AB9F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 11 mac-auth A07E-0700-2A9B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 12 mac-auth A07E-0700-F425 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 13 mac-auth B4B0-554D-5F14 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 14 mac-auth B4B0-55AE-3072 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 15 mac-auth C070-095F-4983 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 16 mac-auth C447-3FC1-7248 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 17 mac-auth C470-0B93-A3D8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 18 mac-auth C470-0B93-A818 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 19 mac-auth E4A8-B667-1D37 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 20 mac-auth E868-1909-6725 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 21 mac-auth E868-1913-728A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 22 mac-auth E868-1918-75F9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 23 mac-auth E868-1918-D31E oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 24 mac-auth E868-191C-BACC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 8 25 mac-auth F8E8-111E-623D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 0 mac-auth 049F-CA78-DF90 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 1 mac-auth 48AD-08E9-F0D6 oam ont-lineprofile-id 15 ont-srvprofile-id
+ 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 2 mac-auth 6012-3C02-8934 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 3 mac-auth 6012-3C02-F527 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 4 mac-auth 6012-3D12-5FB3 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 5 mac-auth 7488-2A29-CC02 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 6 mac-auth 7488-2A84-9BD7 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 7 mac-auth 7488-2ACD-729E oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 8 mac-auth 749D-8F30-B112 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 9 mac-auth 8014-A83C-16B8 oam ont-lineprofile-id 15 ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 10 mac-auth 8066-290B-7343 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 11 mac-auth 8479-7399-57A3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 12 mac-auth 8479-73C5-BC66 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 13 mac-auth 8479-73C5-C194 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 14 mac-auth 8479-73ED-3F48 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 15 mac-auth 8479-73FB-3913 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 16 mac-auth 9003-255B-29A5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 17 mac-auth 9C37-F416-26C8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 18 mac-auth A07E-0700-2FA5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 19 mac-auth AC61-7546-91D3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 20 mac-auth B4B0-555B-E3C7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 21 mac-auth B4B0-55D9-6338 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 22 mac-auth B4B0-55F4-DBF9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 23 mac-auth B4D0-A951-9BD2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 24 mac-auth C470-0B93-6E88 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 25 mac-auth C470-0B94-02D0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 26 mac-auth E42D-7B3C-76FF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 27 mac-auth E42D-7B3C-A78F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 28 mac-auth E868-1910-0E34 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 29 mac-auth E868-1910-796D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 30 mac-auth E868-1911-3C1B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 31 mac-auth E868-1911-47E7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 32 mac-auth E868-1913-8267 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 33 mac-auth E868-1913-BC22 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 34 mac-auth FCE3-3CE8-7DC3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 9 35 mac-auth 48D5-39AF-0BF1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 0 mac-auth 00D3-9EB2-89D0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 1 mac-auth 244C-07C9-C6E4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 2 mac-auth 384C-4F32-651A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 3 mac-auth 384C-4FF0-7466 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 4 mac-auth 4482-E54E-7BAE oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 5 mac-auth 48FD-8E78-A5B0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 6 mac-auth 6012-3C01-76DC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 7 mac-auth 6012-3C01-E91C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 8 mac-auth 6012-3C02-59CF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 9 mac-auth 6012-3C02-A1BC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 10 mac-auth 6012-3D12-B2F0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 11 mac-auth 6889-C1F0-44FB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 12 mac-auth 7488-2A00-A43C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 13 mac-auth 7488-2A92-3BC5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 14 mac-auth 7CA2-3E03-A21C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 15 mac-auth 8014-A83C-1758 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 16 mac-auth 8014-A8F4-DE48 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 17 mac-auth 8038-BC58-C1E9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 18 mac-auth 8479-7399-5EA2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 19 mac-auth 8479-73FB-247B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 20 mac-auth 9C28-EFEA-F818 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 21 mac-auth 9C28-EFF7-ABBD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 22 mac-auth A07E-0700-18D7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 23 mac-auth A07E-0700-2DDD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 24 mac-auth A07E-9B08-43A9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 25 mac-auth A27E-0801-A920 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 26 mac-auth A27E-0801-C050 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 27 mac-auth AC61-758F-98C8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 28 mac-auth B4B0-5554-2E65 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 29 mac-auth B4B0-55AF-5785 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 30 mac-auth B4D0-A95E-633C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 31 mac-auth B4FB-F9D3-4FEE oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 32 mac-auth C470-0B93-DAB0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 33 mac-auth C470-0B93-DF30 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 34 mac-auth D849-0BEB-48C3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 35 mac-auth DCD2-FCBF-11FB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 36 mac-auth E42D-7B05-067F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 37 mac-auth E42D-7B0C-BEEF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 38 mac-auth E42D-7B3C-739F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 39 mac-auth E4A8-B6A8-CB88 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 40 mac-auth E868-1910-18FD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 41 mac-auth E868-1911-7728 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 42 mac-auth E868-1913-7490 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 43 mac-auth E868-1918-158C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 44 mac-auth E868-1918-2BDD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 45 mac-auth E868-191C-4B65 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 46 mac-auth E868-191C-C4DF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 47 mac-auth E884-C666-DAB3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 48 mac-auth F8E8-111E-5D84 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 10 49 mac-auth E868-1917-860F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 0 mac-auth 0011-2233-4455 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 1 mac-auth 006D-6160-9DA8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 2 mac-auth 1051-7282-D526 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 3 mac-auth 4CAE-1C01-6A10 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 4 mac-auth 601C-5E30-6A41 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 5 mac-auth 601C-BB81-8713 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 6 mac-auth 8014-A83C-1708 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 7 mac-auth 8014-A83C-4940 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 8 mac-auth 8014-A8F4-DDA0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 9 mac-auth 8066-290C-3221 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 10 mac-auth 8479-73FB-3138 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 11 mac-auth 8479-73FB-3429 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 12 mac-auth 8479-73FB-34DB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 13 mac-auth 84AD-58B1-5149 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 14 mac-auth 9C74-1AE0-8E48 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 15 mac-auth A07E-0700-1A5D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 16 mac-auth A07E-0700-37A3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 17 mac-auth A07E-0700-F2CF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 18 mac-auth A27E-0801-B210 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 19 mac-auth AC61-7568-93EE oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 20 mac-auth B4B0-55DB-6627 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 21 mac-auth B4FB-F9D3-1A8F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 22 mac-auth B4FB-F9D3-410D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 23 mac-auth C470-0B93-9C58 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 24 mac-auth C470-0B93-CC88 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 25 mac-auth C470-0B93-E660 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 26 mac-auth C470-0B93-F158 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 27 mac-auth C470-0B93-F930 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 28 mac-auth E42D-7B0C-8C0F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 29 mac-auth E42D-7B7F-08BF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 30 mac-auth E4A8-B656-A1D3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 31 mac-auth E4A8-B6A9-D352 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 32 mac-auth E868-1909-4F78 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 33 mac-auth E868-1913-61F4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 34 mac-auth E868-1917-3EC9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 35 mac-auth E868-1917-7569 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 36 mac-auth 7488-2A56-D967 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 11 37 mac-auth C470-0B93-B3D8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 0 mac-auth 04F9-3877-EDE4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 1 mac-auth 244C-07C6-5F2A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 2 mac-auth 2CAB-00DC-46EA oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 3 mac-auth 2CCF-58F2-74EF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 4 mac-auth 6012-3C01-0D24 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 5 mac-auth 6012-3C01-4A1D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 6 mac-auth 6012-3C01-94AA oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 7 mac-auth 6012-3C01-99E9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 8 mac-auth 6012-3C02-8FC2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 9 mac-auth 6012-3C02-91A1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 10 mac-auth 601C-0447-32D8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 11 mac-auth 601C-5FB4-03E0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 12 mac-auth 601C-7E19-D598 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 13 mac-auth 7488-2A37-C471 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 14 mac-auth 7488-2A3A-576A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 15 mac-auth 7488-2A3F-8C73 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 16 mac-auth 7488-2A57-4FF9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 17 mac-auth 7488-2AA6-7458 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 18 mac-auth 7488-2AE1-E740 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 19 mac-auth 88A2-D767-D796 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 20 mac-auth A27E-0801-B930 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 21 mac-auth AC61-75AD-1282 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 22 mac-auth B4B0-5528-8211 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 23 mac-auth B4B0-553D-87C5 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 24 mac-auth B4B0-555A-89DC oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 25 mac-auth B4B0-5575-6574 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 26 mac-auth B4B0-55A4-A51A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 27 mac-auth B4FB-F9D3-64E7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 28 mac-auth E42D-7B05-052F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 29 mac-auth E42D-7B05-702F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 30 mac-auth E42D-7B1A-EA8F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 31 mac-auth E468-A325-A651 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 32 mac-auth E868-1913-9294 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 33 mac-auth E868-1913-AD79 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 34 mac-auth E868-1913-FD38 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 35 mac-auth E868-1918-52B3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 36 mac-auth E868-1918-890A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 37 mac-auth E868-1918-C532 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 38 mac-auth E868-191C-C7D3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 39 mac-auth 006D-6156-7BE8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 40 mac-auth 006D-6164-CA20 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 41 mac-auth 8014-A83C-1718 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 42 mac-auth 8014-A8DF-41F8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 43 mac-auth 8066-290C-325F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 44 mac-auth 8479-7399-5D39 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 45 mac-auth 8479-73ED-3683 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 46 mac-auth 8479-73ED-3CDD oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 47 mac-auth A07E-0700-2CC3 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 48 mac-auth A07E-0700-F13D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 49 mac-auth A07E-9B08-4691 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 12 50 mac-auth C470-0B93-71A8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 0 mac-auth 203D-B2F7-67BA oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 1 mac-auth 384C-4FE0-409B oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 2 mac-auth 6012-3C01-9D01 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 3 mac-auth 6012-3C01-E3EB oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 4 mac-auth 6012-3C02-1C83 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 5 mac-auth 6012-3C02-2818 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 6 mac-auth 6012-3D12-88D1 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 7 mac-auth 6012-3D12-BE0C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 8 mac-auth 601C-0C1A-8BC8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 9 mac-auth 601C-55F6-595C oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 10 mac-auth 601C-B895-B0F7 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 11 mac-auth 601C-C7C3-07D6 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 12 mac-auth 602C-34B3-834D oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 13 mac-auth 7488-2A26-BAE8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 14 mac-auth 7488-2A2F-2937 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 15 mac-auth 7488-2A4D-DE07 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 16 mac-auth 7488-2A5F-1B30 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 17 mac-auth 7488-2AC7-F91A oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 18 mac-auth 8014-A84F-EE50 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 19 mac-auth 8014-A8DF-35B0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 20 mac-auth 8014-A8DF-4228 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 21 mac-auth 8014-A8F4-DFC8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 22 mac-auth 8479-7399-57E4 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 23 mac-auth 8479-7399-57EF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 24 mac-auth 8479-73C5-C14E oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 25 mac-auth 8479-73FB-4CE6 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 26 mac-auth 9003-259F-ECC8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 27 mac-auth 9C37-F415-C6F2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 28 mac-auth AC4E-9134-22F9 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 29 mac-auth B4B0-553C-572F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 30 mac-auth B4B0-55E6-0500 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 31 mac-auth BC62-0E33-7828 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 32 mac-auth C470-0B93-04C0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 33 mac-auth C470-0B93-1828 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 34 mac-auth C470-0B93-5950 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 35 mac-auth C470-0B93-B9C8 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 36 mac-auth C470-0B94-08B0 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 37 mac-auth D0D0-4BAE-05E2 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 38 mac-auth E42D-7B05-16CF oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 39 mac-auth E42D-7B1A-E86F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 40 mac-auth E42D-7B1B-0E3F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 41 mac-auth E42D-7B1B-408F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 42 mac-auth E42D-7B3C-A36F oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+ ont add 13 43 mac-auth E4A8-B6A8-EB04 oam ont-lineprofile-id 15
+ont-srvprofile-id 15 desc "ONT_NO_DESCRIPTION"
+#
+[bbs-config]
+  <bbs-config>
+ service-port 0 vlan 61 port 0/0/0 ont 0 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 1 vlan 61 port 0/0/0 ont 1 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 2 vlan 61 port 0/0/0 ont 2 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 3 vlan 61 port 0/0/0 ont 3 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 4 vlan 61 port 0/0/0 ont 4 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 5 vlan 61 port 0/0/0 ont 5 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 6 vlan 61 port 0/0/0 ont 6 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 7 vlan 61 port 0/0/0 ont 7 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 8 vlan 61 port 0/0/0 ont 8 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 9 vlan 61 port 0/0/0 ont 9 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 10 vlan 61 port 0/0/0 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 11 vlan 61 port 0/0/0 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 12 vlan 61 port 0/0/0 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 13 vlan 61 port 0/0/0 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 14 vlan 61 port 0/0/0 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 15 vlan 61 port 0/0/0 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 16 vlan 61 port 0/0/0 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 17 vlan 61 port 0/0/0 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 18 vlan 61 port 0/0/0 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 19 vlan 61 port 0/0/0 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 20 vlan 61 port 0/0/0 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 21 vlan 61 port 0/0/0 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 22 vlan 61 port 0/0/0 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 23 vlan 61 port 0/0/0 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 24 vlan 61 port 0/0/0 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 25 vlan 61 port 0/0/0 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 26 vlan 61 port 0/0/0 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 27 vlan 61 port 0/0/0 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 28 vlan 62 port 0/0/1 ont 0 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 29 vlan 62 port 0/0/1 ont 1 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 30 vlan 62 port 0/0/1 ont 2 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 31 vlan 62 port 0/0/1 ont 3 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 32 vlan 62 port 0/0/1 ont 4 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 33 vlan 62 port 0/0/1 ont 5 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 34 vlan 62 port 0/0/1 ont 6 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 35 vlan 62 port 0/0/1 ont 7 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 36 vlan 62 port 0/0/1 ont 8 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 37 vlan 63 port 0/0/2 ont 0 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 38 vlan 63 port 0/0/2 ont 1 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 39 vlan 63 port 0/0/2 ont 2 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 40 vlan 63 port 0/0/2 ont 3 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 41 vlan 63 port 0/0/2 ont 4 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 42 vlan 63 port 0/0/2 ont 5 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 43 vlan 63 port 0/0/2 ont 6 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 44 vlan 63 port 0/0/2 ont 7 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 45 vlan 63 port 0/0/2 ont 8 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 46 vlan 63 port 0/0/2 ont 9 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 47 vlan 63 port 0/0/2 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 48 vlan 63 port 0/0/2 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 49 vlan 63 port 0/0/2 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 50 vlan 63 port 0/0/2 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 51 vlan 63 port 0/0/2 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 52 vlan 63 port 0/0/2 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 53 vlan 63 port 0/0/2 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 54 vlan 63 port 0/0/2 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 55 vlan 63 port 0/0/2 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 56 vlan 63 port 0/0/2 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 57 vlan 63 port 0/0/2 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 58 vlan 63 port 0/0/2 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 59 vlan 63 port 0/0/2 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 60 vlan 63 port 0/0/2 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 61 vlan 63 port 0/0/2 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 62 vlan 63 port 0/0/2 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 63 vlan 63 port 0/0/2 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 64 vlan 64 port 0/0/3 ont 0 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 65 vlan 64 port 0/0/3 ont 1 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 66 vlan 64 port 0/0/3 ont 2 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 67 vlan 64 port 0/0/3 ont 3 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 68 vlan 64 port 0/0/3 ont 4 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 69 vlan 64 port 0/0/3 ont 5 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 70 vlan 64 port 0/0/3 ont 6 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 71 vlan 64 port 0/0/3 ont 7 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 72 vlan 64 port 0/0/3 ont 8 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 73 vlan 64 port 0/0/3 ont 9 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 74 vlan 64 port 0/0/3 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 75 vlan 64 port 0/0/3 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 76 vlan 64 port 0/0/3 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 77 vlan 64 port 0/0/3 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 78 vlan 64 port 0/0/3 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 79 vlan 64 port 0/0/3 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 80 vlan 64 port 0/0/3 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 81 vlan 64 port 0/0/3 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 82 vlan 64 port 0/0/3 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 83 vlan 64 port 0/0/3 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 84 vlan 64 port 0/0/3 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 85 vlan 65 port 0/0/4 ont 0 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 86 vlan 65 port 0/0/4 ont 1 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 87 vlan 65 port 0/0/4 ont 2 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 88 vlan 65 port 0/0/4 ont 3 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 89 vlan 65 port 0/0/4 ont 4 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 90 vlan 65 port 0/0/4 ont 5 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 91 vlan 65 port 0/0/4 ont 6 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 92 vlan 65 port 0/0/4 ont 7 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 93 vlan 65 port 0/0/4 ont 8 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 94 vlan 65 port 0/0/4 ont 9 eth 1 multi-service user-vlan untagged tag-transform default
+ service-port 95 vlan 65 port 0/0/4 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 96 vlan 65 port 0/0/4 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 97 vlan 65 port 0/0/4 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 98 vlan 65 port 0/0/4 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 99 vlan 65 port 0/0/4 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 100 vlan 65 port 0/0/4 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 101 vlan 65 port 0/0/4 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 102 vlan 65 port 0/0/4 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 103 vlan 65 port 0/0/4 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 104 vlan 65 port 0/0/4 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 105 vlan 65 port 0/0/4 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 106 vlan 65 port 0/0/4 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 107 vlan 65 port 0/0/4 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 108 vlan 65 port 0/0/4 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 109 vlan 65 port 0/0/4 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 110 vlan 65 port 0/0/4 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 111 vlan 65 port 0/0/4 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 112 vlan 65 port 0/0/4 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 113 vlan 65 port 0/0/4 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 114 vlan 65 port 0/0/4 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 115 vlan 65 port 0/0/4 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 116 vlan 65 port 0/0/4 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 117 vlan 65 port 0/0/4 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 118 vlan 65 port 0/0/4 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 119 vlan 65 port 0/0/4 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 120 vlan 65 port 0/0/4 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 121 vlan 65 port 0/0/4 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 122 vlan 65 port 0/0/4 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 123 vlan 65 port 0/0/4 ont 38 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 124 vlan 65 port 0/0/4 ont 40 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 125 vlan 65 port 0/0/4 ont 41 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 126 vlan 65 port 0/0/4 ont 42 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 127 vlan 65 port 0/0/4 ont 43 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 128 vlan 65 port 0/0/4 ont 44 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 129 vlan 65 port 0/0/4 ont 45 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 130 vlan 66 port 0/0/5 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 131 vlan 66 port 0/0/5 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 132 vlan 66 port 0/0/5 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 133 vlan 66 port 0/0/5 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 134 vlan 66 port 0/0/5 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 135 vlan 66 port 0/0/5 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 136 vlan 66 port 0/0/5 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 137 vlan 66 port 0/0/5 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 138 vlan 66 port 0/0/5 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 139 vlan 66 port 0/0/5 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 140 vlan 66 port 0/0/5 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 141 vlan 66 port 0/0/5 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 142 vlan 66 port 0/0/5 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 143 vlan 66 port 0/0/5 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 144 vlan 66 port 0/0/5 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 145 vlan 66 port 0/0/5 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 146 vlan 66 port 0/0/5 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 147 vlan 66 port 0/0/5 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 148 vlan 66 port 0/0/5 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 149 vlan 66 port 0/0/5 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 150 vlan 66 port 0/0/5 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 151 vlan 66 port 0/0/5 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 152 vlan 66 port 0/0/5 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 153 vlan 66 port 0/0/5 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 154 vlan 66 port 0/0/5 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 155 vlan 66 port 0/0/5 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 156 vlan 66 port 0/0/5 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 157 vlan 66 port 0/0/5 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 158 vlan 66 port 0/0/5 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 159 vlan 66 port 0/0/5 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 160 vlan 66 port 0/0/5 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 161 vlan 66 port 0/0/5 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 162 vlan 66 port 0/0/5 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 163 vlan 66 port 0/0/5 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 164 vlan 66 port 0/0/5 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 165 vlan 66 port 0/0/5 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 166 vlan 66 port 0/0/5 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 167 vlan 66 port 0/0/5 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 168 vlan 64 port 0/0/3 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 169 vlan 67 port 0/0/6 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 170 vlan 67 port 0/0/6 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 171 vlan 67 port 0/0/6 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 172 vlan 67 port 0/0/6 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 173 vlan 67 port 0/0/6 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 174 vlan 67 port 0/0/6 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 175 vlan 67 port 0/0/6 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 176 vlan 67 port 0/0/6 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 177 vlan 67 port 0/0/6 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 178 vlan 67 port 0/0/6 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 179 vlan 67 port 0/0/6 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 180 vlan 67 port 0/0/6 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 181 vlan 67 port 0/0/6 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 182 vlan 67 port 0/0/6 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 183 vlan 67 port 0/0/6 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 184 vlan 67 port 0/0/6 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 185 vlan 67 port 0/0/6 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 186 vlan 67 port 0/0/6 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 187 vlan 67 port 0/0/6 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 188 vlan 67 port 0/0/6 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 189 vlan 67 port 0/0/6 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 190 vlan 67 port 0/0/6 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 191 vlan 67 port 0/0/6 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 192 vlan 67 port 0/0/6 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 193 vlan 67 port 0/0/6 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 194 vlan 67 port 0/0/6 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 195 vlan 67 port 0/0/6 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 196 vlan 67 port 0/0/6 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 197 vlan 67 port 0/0/6 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 198 vlan 68 port 0/0/7 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 199 vlan 68 port 0/0/7 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 200 vlan 68 port 0/0/7 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 201 vlan 68 port 0/0/7 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 202 vlan 68 port 0/0/7 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 203 vlan 68 port 0/0/7 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 204 vlan 68 port 0/0/7 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 205 vlan 68 port 0/0/7 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 206 vlan 68 port 0/0/7 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 207 vlan 68 port 0/0/7 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 208 vlan 68 port 0/0/7 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 209 vlan 68 port 0/0/7 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 210 vlan 68 port 0/0/7 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 211 vlan 68 port 0/0/7 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 212 vlan 68 port 0/0/7 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 213 vlan 68 port 0/0/7 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 214 vlan 68 port 0/0/7 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 215 vlan 68 port 0/0/7 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 216 vlan 68 port 0/0/7 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 217 vlan 68 port 0/0/7 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 218 vlan 68 port 0/0/7 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 219 vlan 68 port 0/0/7 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 220 vlan 68 port 0/0/7 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 221 vlan 68 port 0/0/7 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 222 vlan 68 port 0/0/7 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 223 vlan 68 port 0/0/7 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 224 vlan 68 port 0/0/7 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 225 vlan 68 port 0/0/7 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 226 vlan 68 port 0/0/7 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 227 vlan 68 port 0/0/7 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 228 vlan 68 port 0/0/7 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 229 vlan 68 port 0/0/7 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 230 vlan 68 port 0/0/7 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 231 vlan 68 port 0/0/7 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 232 vlan 68 port 0/0/7 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 233 vlan 68 port 0/0/7 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 234 vlan 68 port 0/0/7 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 235 vlan 68 port 0/0/7 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 236 vlan 68 port 0/0/7 ont 38 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 237 vlan 68 port 0/0/7 ont 39 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 238 vlan 68 port 0/0/7 ont 40 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 239 vlan 68 port 0/0/7 ont 41 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 240 vlan 68 port 0/0/7 ont 42 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 241 vlan 68 port 0/0/7 ont 43 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 242 vlan 68 port 0/0/7 ont 44 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 243 vlan 68 port 0/0/7 ont 45 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 244 vlan 23 port 0/0/8 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 245 vlan 23 port 0/0/8 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 246 vlan 23 port 0/0/8 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 247 vlan 23 port 0/0/8 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 248 vlan 23 port 0/0/8 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 249 vlan 23 port 0/0/8 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 250 vlan 23 port 0/0/8 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 251 vlan 23 port 0/0/8 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 252 vlan 23 port 0/0/8 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 253 vlan 23 port 0/0/8 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 254 vlan 23 port 0/0/8 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 255 vlan 23 port 0/0/8 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 256 vlan 23 port 0/0/8 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 257 vlan 23 port 0/0/8 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 258 vlan 23 port 0/0/8 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 259 vlan 23 port 0/0/8 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 260 vlan 23 port 0/0/8 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 261 vlan 23 port 0/0/8 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 262 vlan 23 port 0/0/8 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 263 vlan 23 port 0/0/8 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 264 vlan 23 port 0/0/8 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 265 vlan 23 port 0/0/8 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 266 vlan 23 port 0/0/8 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 267 vlan 23 port 0/0/8 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 268 vlan 23 port 0/0/8 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 269 vlan 23 port 0/0/8 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 270 vlan 24 port 0/0/9 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 271 vlan 24 port 0/0/9 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 272 vlan 24 port 0/0/9 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 273 vlan 24 port 0/0/9 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 274 vlan 24 port 0/0/9 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 275 vlan 24 port 0/0/9 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 276 vlan 24 port 0/0/9 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 277 vlan 24 port 0/0/9 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 278 vlan 24 port 0/0/9 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 279 vlan 24 port 0/0/9 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 280 vlan 24 port 0/0/9 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 281 vlan 24 port 0/0/9 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 282 vlan 24 port 0/0/9 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 283 vlan 24 port 0/0/9 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 284 vlan 24 port 0/0/9 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 285 vlan 24 port 0/0/9 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 286 vlan 24 port 0/0/9 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 287 vlan 24 port 0/0/9 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 288 vlan 24 port 0/0/9 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 289 vlan 24 port 0/0/9 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 290 vlan 24 port 0/0/9 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 291 vlan 24 port 0/0/9 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 292 vlan 24 port 0/0/9 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 293 vlan 24 port 0/0/9 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 294 vlan 24 port 0/0/9 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 295 vlan 24 port 0/0/9 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 296 vlan 24 port 0/0/9 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 297 vlan 24 port 0/0/9 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 298 vlan 24 port 0/0/9 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 299 vlan 24 port 0/0/9 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 300 vlan 24 port 0/0/9 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 301 vlan 24 port 0/0/9 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 302 vlan 24 port 0/0/9 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 303 vlan 24 port 0/0/9 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 304 vlan 25 port 0/0/10 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 305 vlan 25 port 0/0/10 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 306 vlan 25 port 0/0/10 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 307 vlan 25 port 0/0/10 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 308 vlan 25 port 0/0/10 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 309 vlan 25 port 0/0/10 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 310 vlan 25 port 0/0/10 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 311 vlan 25 port 0/0/10 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 312 vlan 25 port 0/0/10 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 313 vlan 25 port 0/0/10 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 314 vlan 25 port 0/0/10 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 315 vlan 25 port 0/0/10 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 316 vlan 25 port 0/0/10 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 317 vlan 25 port 0/0/10 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 318 vlan 25 port 0/0/10 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 319 vlan 25 port 0/0/10 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 320 vlan 25 port 0/0/10 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 321 vlan 25 port 0/0/10 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 322 vlan 25 port 0/0/10 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 323 vlan 25 port 0/0/10 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 324 vlan 25 port 0/0/10 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 325 vlan 25 port 0/0/10 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 326 vlan 25 port 0/0/10 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 327 vlan 25 port 0/0/10 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 328 vlan 25 port 0/0/10 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 329 vlan 25 port 0/0/10 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 330 vlan 25 port 0/0/10 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 331 vlan 25 port 0/0/10 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 332 vlan 25 port 0/0/10 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 333 vlan 25 port 0/0/10 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 334 vlan 25 port 0/0/10 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 335 vlan 25 port 0/0/10 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 336 vlan 25 port 0/0/10 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 337 vlan 25 port 0/0/10 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 338 vlan 25 port 0/0/10 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 339 vlan 25 port 0/0/10 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 340 vlan 25 port 0/0/10 ont 38 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 341 vlan 25 port 0/0/10 ont 39 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 342 vlan 25 port 0/0/10 ont 40 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 343 vlan 25 port 0/0/10 ont 41 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 344 vlan 25 port 0/0/10 ont 42 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 345 vlan 25 port 0/0/10 ont 43 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 346 vlan 25 port 0/0/10 ont 44 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 347 vlan 25 port 0/0/10 ont 45 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 348 vlan 25 port 0/0/10 ont 46 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 349 vlan 25 port 0/0/10 ont 47 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 350 vlan 25 port 0/0/10 ont 48 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 351 vlan 26 port 0/0/11 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 352 vlan 26 port 0/0/11 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 353 vlan 26 port 0/0/11 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 354 vlan 26 port 0/0/11 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 355 vlan 26 port 0/0/11 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 356 vlan 26 port 0/0/11 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 357 vlan 26 port 0/0/11 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 358 vlan 26 port 0/0/11 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 359 vlan 26 port 0/0/11 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 360 vlan 26 port 0/0/11 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 361 vlan 26 port 0/0/11 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 362 vlan 26 port 0/0/11 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 363 vlan 26 port 0/0/11 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 364 vlan 26 port 0/0/11 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 365 vlan 26 port 0/0/11 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 366 vlan 26 port 0/0/11 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 367 vlan 26 port 0/0/11 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 368 vlan 26 port 0/0/11 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 369 vlan 26 port 0/0/11 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 370 vlan 26 port 0/0/11 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 371 vlan 26 port 0/0/11 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 372 vlan 26 port 0/0/11 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 373 vlan 26 port 0/0/11 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 374 vlan 26 port 0/0/11 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 375 vlan 26 port 0/0/11 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 376 vlan 26 port 0/0/11 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 377 vlan 26 port 0/0/11 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 378 vlan 26 port 0/0/11 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 379 vlan 26 port 0/0/11 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 380 vlan 26 port 0/0/11 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 381 vlan 26 port 0/0/11 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 382 vlan 26 port 0/0/11 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 383 vlan 26 port 0/0/11 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 384 vlan 26 port 0/0/11 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 385 vlan 26 port 0/0/11 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 386 vlan 26 port 0/0/11 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 387 vlan 26 port 0/0/11 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 388 vlan 27 port 0/0/12 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 389 vlan 27 port 0/0/12 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 390 vlan 27 port 0/0/12 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 391 vlan 27 port 0/0/12 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 392 vlan 27 port 0/0/12 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 393 vlan 27 port 0/0/12 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 394 vlan 27 port 0/0/12 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 395 vlan 27 port 0/0/12 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 396 vlan 27 port 0/0/12 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 397 vlan 27 port 0/0/12 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 398 vlan 27 port 0/0/12 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 399 vlan 27 port 0/0/12 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 400 vlan 27 port 0/0/12 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 401 vlan 27 port 0/0/12 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 402 vlan 27 port 0/0/12 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 403 vlan 27 port 0/0/12 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 404 vlan 27 port 0/0/12 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 405 vlan 27 port 0/0/12 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 406 vlan 27 port 0/0/12 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 407 vlan 27 port 0/0/12 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 408 vlan 27 port 0/0/12 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 409 vlan 27 port 0/0/12 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 410 vlan 27 port 0/0/12 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 411 vlan 27 port 0/0/12 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 412 vlan 27 port 0/0/12 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 413 vlan 27 port 0/0/12 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 414 vlan 27 port 0/0/12 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 415 vlan 27 port 0/0/12 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 416 vlan 27 port 0/0/12 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 417 vlan 27 port 0/0/12 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 418 vlan 27 port 0/0/12 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 419 vlan 27 port 0/0/12 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 420 vlan 27 port 0/0/12 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 421 vlan 27 port 0/0/12 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 422 vlan 27 port 0/0/12 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 423 vlan 27 port 0/0/12 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 424 vlan 27 port 0/0/12 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 425 vlan 27 port 0/0/12 ont 38 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 426 vlan 27 port 0/0/12 ont 39 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 427 vlan 27 port 0/0/12 ont 40 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 428 vlan 27 port 0/0/12 ont 41 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 429 vlan 27 port 0/0/12 ont 42 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 430 vlan 27 port 0/0/12 ont 43 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 431 vlan 27 port 0/0/12 ont 44 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 432 vlan 27 port 0/0/12 ont 45 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 433 vlan 27 port 0/0/12 ont 46 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 434 vlan 27 port 0/0/12 ont 47 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 435 vlan 27 port 0/0/12 ont 48 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 436 vlan 27 port 0/0/12 ont 49 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 437 vlan 27 port 0/0/12 ont 50 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 438 vlan 27 port 0/0/12 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 439 vlan 28 port 0/0/13 ont 0 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 440 vlan 28 port 0/0/13 ont 1 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 441 vlan 28 port 0/0/13 ont 2 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 442 vlan 28 port 0/0/13 ont 3 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 443 vlan 28 port 0/0/13 ont 4 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 444 vlan 28 port 0/0/13 ont 5 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 445 vlan 28 port 0/0/13 ont 6 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 446 vlan 28 port 0/0/13 ont 7 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 447 vlan 28 port 0/0/13 ont 8 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 448 vlan 28 port 0/0/13 ont 9 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 449 vlan 28 port 0/0/13 ont 10 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 450 vlan 28 port 0/0/13 ont 11 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 451 vlan 28 port 0/0/13 ont 12 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 452 vlan 28 port 0/0/13 ont 13 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 453 vlan 28 port 0/0/13 ont 14 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 454 vlan 28 port 0/0/13 ont 15 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 455 vlan 28 port 0/0/13 ont 16 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 456 vlan 28 port 0/0/13 ont 17 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 457 vlan 28 port 0/0/13 ont 18 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 458 vlan 28 port 0/0/13 ont 19 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 459 vlan 28 port 0/0/13 ont 20 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 460 vlan 28 port 0/0/13 ont 21 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 461 vlan 28 port 0/0/13 ont 22 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 462 vlan 28 port 0/0/13 ont 23 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 463 vlan 28 port 0/0/13 ont 24 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 464 vlan 28 port 0/0/13 ont 25 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 465 vlan 28 port 0/0/13 ont 26 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 466 vlan 28 port 0/0/13 ont 27 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 467 vlan 28 port 0/0/13 ont 28 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 468 vlan 28 port 0/0/13 ont 29 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 469 vlan 28 port 0/0/13 ont 30 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 470 vlan 28 port 0/0/13 ont 31 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 471 vlan 28 port 0/0/13 ont 32 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 472 vlan 28 port 0/0/13 ont 33 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 473 vlan 28 port 0/0/13 ont 34 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 474 vlan 28 port 0/0/13 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 475 vlan 28 port 0/0/13 ont 36 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 476 vlan 28 port 0/0/13 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 477 vlan 28 port 0/0/13 ont 38 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 478 vlan 28 port 0/0/13 ont 39 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 479 vlan 28 port 0/0/13 ont 40 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 480 vlan 28 port 0/0/13 ont 41 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 481 vlan 28 port 0/0/13 ont 42 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 482 vlan 28 port 0/0/13 ont 43 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 483 vlan 24 port 0/0/9 ont 35 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 484 vlan 26 port 0/0/11 ont 37 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 485 vlan 68 port 0/0/7 ont 46 eth 1 multi-service user-vlan
+untagged tag-transform default
+ service-port 486 vlan 25 port 0/0/10 ont 49 eth 1 multi-service user-vlan
+untagged tag-transform default
+#
+[config]
+  <config>
+ mpls label start 8192
+#
+[prevlanif]
+  <prevlanif>
+ interface vlanif809
+#
+[vlanif]
+  <vlanif809>
+interface vlanif809
+ ip address 172.27.173.30 255.255.255.252
+#
+[meth]
+  <meth0>
+interface meth0
+ ip address 10.11.104.2 255.255.255.0
+#
+[null]
+  <null0>
+interface null0
+#
+[aaa]
+  <aaa>
+aaa
+ authentication-scheme "default"
+ #
+ authorization-scheme "default"
+ #
+ accounting-scheme "default"
+ #
+ domain "default"
+ #
+#
+[post-system]
+  <post-system>
+ip route-static 0.0.0.0 0.0.0.0 172.27.173.29
+ ssh user root authentication-type password
+ ssh user xpress-noc authentication-type password
+ ssh user xnms-noc authentication-type password
+#
+return
+
+SYL-TILAGHOR-HUAWEI#

@@ -1,0 +1,245 @@
+
+
+
+
+                 Welcome to BDCOM S5610-2AC Ethernet Switch
+
+
+
+
+
+SAYADABAD-POP>enable
+password:
+SAYADABAD-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging source-interface VLAN999
+logging 10.160.4.11 informational
+logging buffered 4096
+!
+!
+hostname SAYADABAD-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username admin password 7 08383527483e
+username xpress-noc password 7 0845401d1309031a2373
+username rifat password 7 08493a2040440f1a2873
+!
+enable password 7 08100870120706 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.89 255.255.255.255
+ no ip directed-broadcast
+!
+interface Port-aggregator1
+ description EHL-SAYADABAD-LACP
+ spanning-tree cost 2000
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface Port-aggregator2
+ description JB-SAYADABAD-LACP
+ spanning-tree cost 6000
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface GigaEthernet0/1
+!
+interface GigaEthernet0/2
+!
+interface TGigaEthernet0/1
+ description EHL-LACP-1
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface TGigaEthernet0/2
+ description EHL-LACP-2
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description JB-LACP-1
+ aggregator-group 2 mode lacp
+ switchport mode trunk
+ switchport pvid 999
+!
+interface TGigaEthernet0/4
+ description JB-LACP-2
+ aggregator-group 2 mode lacp
+ switchport mode trunk
+ switchport pvid 999
+!
+interface TGigaEthernet0/5
+ description P2P-WARI
+ spanning-tree cost 4000
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface TGigaEthernet0/6
+ description SAYADABAD-RESELLER
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 262,267,342,362,462,503,515
+ switchport trunk vlan-untagged 1
+!
+interface TGigaEthernet0/7
+ description P2P-CYBERNET
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+!
+interface TGigaEthernet0/8
+!
+interface TGigaEthernet0/9
+!
+interface TGigaEthernet0/10
+!
+interface VLAN131
+ description saydabad-2-ehl
+ ip address 172.16.191.94 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN171
+ description saydabad-sw-2-jatrabari-sw
+ ip address 172.16.191.97 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN187
+ description saydabad-sw-2-kam-sw
+ ip address 172.16.191.65 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.21 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 131
+ name saydabad-2-ehl
+!
+vlan 187
+ name ehl-nx-to-saydabad-sw-peering
+!
+vlan 1,11-14,101-108,110,120-125,131,133,170-171,173,187,190-191,202,207,211,218
+vlan 221-222,229,231-232,234-235,237-238,244,247,249,251-252,262,265-267,282,293
+vlan 301-302,306,308-309,314-315,317,319,321-323,325,328,333,336,338-339,343,345
+vlan 349,351,362,364,382,406-407,419,421-422,428,433,436-437,440,443,449,451,462
+vlan 464-465,480,488,493,503,515,528,533,543,602,606,621-628,641-644,671-690,720
+vlan 722,745,751,782,825-840,865-869,999
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.89 255.255.255.255 area 0.0.0.0
+ network 172.16.191.64 255.255.255.252 area 0.0.0.0
+ network 172.16.191.92 255.255.255.252 area 0.0.0.0
+ network 172.16.191.96 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO R0
+snmp-server contact rifat@xpress.ltd
+snmp-server location SAYDABAD-POP,JATRABARI,DHAKA
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+mqtt client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+SAYADABAD-POP#

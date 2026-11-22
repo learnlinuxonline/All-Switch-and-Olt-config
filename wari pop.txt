@@ -1,0 +1,252 @@
+Trying 172.27.177.104...
+Connected to 172.27.177.104.
+Escape character is '^]'.
+User Access Verification
+
+
+Username: xpress-noc
+Password:
+
+
+
+
+
+
+
+
+                 Welcome to BDCOM S2900-2T10X Ethernet Switch
+
+
+
+
+
+WARI-POP>enable
+password:
+WARI-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0F build 134842
+service timestamps log date
+service timestamps debug date
+service password-encryption
+!
+!
+hostname WARI-POP
+!
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+aggregator-group load-balance both-ip
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+username rifat password 7 01432d3809420c16100a
+username xpress-noc password 7 013f33355b077f160b0a
+!
+enable password 7 010a7a095a0503 level 15
+!
+!
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.82 255.255.255.255
+ no ip directed-broadcast
+!
+interface Port-aggregator1
+ description WARI-EHL-LACP
+ switchport mode trunk
+!
+interface Port-aggregator2
+ description WARI-COLO-LACP
+ switchport mode trunk
+!
+interface GigaEthernet0/1
+ shutdown
+ description WARI-OLT-E1
+ switchport mode trunk
+ switchport trunk vlan-allowed 621-625,999-1199
+ keepalive
+!
+interface GigaEthernet0/2
+ description WARI-OLT-E2
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 621-625,821-824,999-1199
+ keepalive
+!
+interface TGigaEthernet0/1
+ description WARI-EHL-LACP-01
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ keepalive
+!
+interface TGigaEthernet0/2
+ description WARI-EHL-LACP-02
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ keepalive
+!
+interface TGigaEthernet0/3
+ description P2P-AGILA
+ switchport mode trunk
+ switchport trunk vlan-untagged 999
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/4
+ description WARI-COLO-LACP-01
+ aggregator-group 2 mode lacp
+ switchport mode trunk
+!
+interface TGigaEthernet0/5
+ description WARI-COLO-LACP-02
+ aggregator-group 2 mode lacp
+ switchport mode trunk
+!
+interface TGigaEthernet0/6
+ description WARI-COLO-LACP-03
+ aggregator-group 2 mode lacp
+ switchport mode trunk
+!
+interface TGigaEthernet0/7
+ description P2P-BANGLAMOTOR
+ spanning-tree cost 8000
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/8
+ description WEB-XPRESS
+ spanning-tree bpdufilter enable
+ switchport mode trunk
+ switchport trunk vlan-allowed 319,333,433,533
+!
+interface TGigaEthernet0/9
+ description P2P-SAYADABAD
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/10
+!
+interface VLAN1
+ shutdown
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN190
+ description banglamotor-2-wari
+ ip address 172.16.191.78 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN191
+ description wari-2-rd.net
+ ip address 172.16.191.82 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.104 255.255.255.0
+ no ip directed-broadcast
+!
+!
+!
+vlan 1-3000
+!
+!
+!
+!
+!
+ip dhcp-relay snooping
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.82 255.255.255.255 area 0.0.0.0
+ network 172.16.191.76 255.255.255.252 area 0.0.0.0
+ network 172.16.191.80 255.255.255.252 area 0.0.0.0
+ network 172.16.191.108 255.255.255.252 area 0.0.0.0
+ network 172.16.191.112 255.255.255.252 area 0.0.0.0
+!
+!
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+!
+!
+ip telnet attack-defense
+ip telnet enable
+!
+ip http language english
+ip http server
+!
+!
+!
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO R0
+snmp-server contact rifat@xpress.ltd
+snmp-server location "Wari-POP(23.719590, 90.423760)"
+!
+!
+line vty 0 15
+ exec-timeout 86400
+!
+!
+ip sshd enable
+!
+time-zone BD 6 0
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+ntp client enable
+!
+!
+!
+!
+mqtt client server default pallas.bdcom.com.cn
+mqtt client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+WARI-POP#

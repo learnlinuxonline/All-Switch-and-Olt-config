@@ -1,0 +1,9 @@
+##################################
+     Proxmox Bangla Tutorial
+##################################
+
+https://www.youtube.com/watch?v=3b5l_77e4Gc&list=PLBI046EVbB6ySAMzHi9z9xaD4lIdvSRrM
+###############################
+   Proxmox VE Post Install
+###############################
+https://tteck.github.io/Proxmox/#proxmox-ve-post-install

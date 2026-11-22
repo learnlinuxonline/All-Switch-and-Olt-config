@@ -1,0 +1,724 @@
+
+version 7.0(3)I7(10) Bios:version 4.5.0
+hostname EHL-NEXUS
+vdc EHL-NEXUS id 1
+  limit-resource vlan minimum 16 maximum 4094
+  limit-resource vrf minimum 2 maximum 4096
+  limit-resource port-channel minimum 0 maximum 104
+  limit-resource u4route-mem minimum 128 maximum 128
+  limit-resource u6route-mem minimum 96 maximum 96
+  limit-resource m4route-mem minimum 58 maximum 58
+  limit-resource m6route-mem minimum 8 maximum 8
+
+feature telnet
+cfs eth distribute
+feature ospf
+feature interface-vlan
+feature lacp
+feature lldp
+clock timezone BDT 6 0
+
+role name custom-operator
+  description Custom Role for Interface Control and Save
+  rule 50 permit command copy running-config startup-config
+  rule 40 permit command no shutdown
+  rule 30 permit command shutdown
+  rule 20 permit command configure terminal ; interface *
+  rule 10 permit command show *
+username admin password 5 $5$QEWHl2FD$fQlag6SiRYo8i4qUAIYDCVN/oGzHXWPO5wnPqY3S7T4  role network-admin
+username ahsan password 5 $5$oUpSKaSZ$hLAurm2qSlojPifIPc3eGf8IspMJYxUaNEejb74caF9  role network-admin
+username xpress-noc password 5 $5$fjBExT7.$9hUTAkPQDSvlX//jKvrBWq1GcQD2DOboKAQfgCGbsj6  role network-operator
+username noc password 5 $5$sdN0km7H$84O1rv.uKGbFpsXfp27kg5bFyhwJXynL.0dMcLZXCV/  role custom-operator
+ip domain-lookup
+spanning-tree mode mst
+service unsupported-transceiver
+ip access-list copp-system-acl-eigrp
+  10 permit eigrp any 224.0.0.10/32
+ipv6 access-list copp-system-acl-eigrp6
+  10 permit eigrp any ff02::a/128
+ip access-list copp-system-acl-icmp
+  10 permit icmp any any
+ip access-list copp-system-acl-igmp
+  10 permit igmp any any
+ip access-list copp-system-acl-ntp
+  10 permit udp any any eq ntp
+  20 permit udp any eq ntp any
+ip access-list copp-system-acl-pimreg
+  10 permit pim any any
+ip access-list copp-system-acl-ping
+  10 permit icmp any any echo
+  20 permit icmp any any echo-reply
+ip access-list copp-system-acl-routingproto1
+  10 permit tcp any gt 1024 any eq bgp
+  20 permit tcp any eq bgp any gt 1024
+  30 permit udp any 224.0.0.0/24 eq rip
+  40 permit tcp any gt 1024 any eq 639
+  50 permit tcp any eq 639 any gt 1024
+  70 permit ospf any any
+  80 permit ospf any 224.0.0.5/32
+  90 permit ospf any 224.0.0.6/32
+ip access-list copp-system-acl-routingproto2
+  10 permit udp any 224.0.0.0/24 eq 1985
+  20 permit 112 any 224.0.0.0/24
+ip access-list copp-system-acl-snmp
+  10 permit udp any any eq snmp
+  20 permit udp any any eq snmptrap
+ip access-list copp-system-acl-ssh
+  10 permit tcp any any eq 22
+  20 permit tcp any eq 22 any
+ip access-list copp-system-acl-stftp
+  10 permit udp any any eq tftp
+  20 permit udp any any eq 1758
+  30 permit udp any eq tftp any
+  40 permit udp any eq 1758 any
+  50 permit tcp any any eq 115
+  60 permit tcp any eq 115 any
+ip access-list copp-system-acl-tacacsradius
+  10 permit tcp any any eq tacacs
+  20 permit tcp any eq tacacs any
+  30 permit udp any any eq 1812
+  40 permit udp any any eq 1813
+  50 permit udp any any eq 1645
+  60 permit udp any any eq 1646
+  70 permit udp any eq 1812 any
+  80 permit udp any eq 1813 any
+  90 permit udp any eq 1645 any
+  100 permit udp any eq 1646 any
+ip access-list copp-system-acl-telnet
+  10 permit tcp any any eq telnet
+  20 permit tcp any any eq 107
+  30 permit tcp any eq telnet any
+  40 permit tcp any eq 107 any
+ipv6 access-list copp-system-acl-v6routingProto2
+  10 permit udp any ff02::66/128 eq 2029
+  20 permit udp any ff02::fb/128 eq 5353
+  30 permit 112 any ff02::12/128
+  40 permit pim any ff02::d/128
+ipv6 access-list copp-system-acl-v6routingproto1
+  10 permit 89 any ff02::5/128
+  20 permit 89 any ff02::6/128
+  30 permit udp any ff02::9/128 eq 521
+ip access-list copp-system-dhcp-relay
+  10 permit udp any eq bootps any eq bootps
+policy-map type network-qos JumboFrames
+  class type network-qos class-default
+    mtu 9216
+system qos
+  service-policy type network-qos JumboFrames
+class-map type control-plane match-any copp-icmp
+  match access-group name copp-system-acl-icmp
+class-map type control-plane match-any copp-ntp
+  match access-group name copp-system-acl-ntp
+class-map type control-plane match-any copp-s-arp
+class-map type control-plane match-any copp-s-bfd
+class-map type control-plane match-any copp-s-bpdu
+class-map type control-plane match-any copp-s-dai
+class-map type control-plane match-any copp-s-default
+class-map type control-plane match-any copp-s-dhcpreq
+class-map type control-plane match-any copp-s-dhcpresp
+  match access-group name copp-system-dhcp-relay
+class-map type control-plane match-any copp-s-dpss
+class-map type control-plane match-any copp-s-eigrp
+  match access-group name copp-system-acl-eigrp
+  match access-group name copp-system-acl-eigrp6
+class-map type control-plane match-any copp-s-glean
+class-map type control-plane match-any copp-s-igmp
+  match access-group name copp-system-acl-igmp
+class-map type control-plane match-any copp-s-ipmcmiss
+class-map type control-plane match-any copp-s-l2switched
+class-map type control-plane match-any copp-s-l3destmiss
+class-map type control-plane match-any copp-s-l3mtufail
+class-map type control-plane match-any copp-s-l3slowpath
+class-map type control-plane match-any copp-s-mpls
+class-map type control-plane match-any copp-s-pimautorp
+class-map type control-plane match-any copp-s-pimreg
+  match access-group name copp-system-acl-pimreg
+class-map type control-plane match-any copp-s-ping
+  match access-group name copp-system-acl-ping
+class-map type control-plane match-any copp-s-ptp
+class-map type control-plane match-any copp-s-routingProto1
+  match access-group name copp-system-acl-routingproto1
+  match access-group name copp-system-acl-v6routingproto1
+class-map type control-plane match-any copp-s-routingProto2
+  match access-group name copp-system-acl-routingproto2
+class-map type control-plane match-any copp-s-selfIp
+class-map type control-plane match-any copp-s-ttl1
+class-map type control-plane match-any copp-s-v6routingProto2
+  match access-group name copp-system-acl-v6routingProto2
+class-map type control-plane match-any copp-s-vxlan
+class-map type control-plane match-any copp-snmp
+  match access-group name copp-system-acl-snmp
+class-map type control-plane match-any copp-ssh
+  match access-group name copp-system-acl-ssh
+class-map type control-plane match-any copp-stftp
+  match access-group name copp-system-acl-stftp
+class-map type control-plane match-any copp-tacacsradius
+  match access-group name copp-system-acl-tacacsradius
+class-map type control-plane match-any copp-telnet
+  match access-group name copp-system-acl-telnet
+policy-map type control-plane copp-system-policy
+  class copp-s-default
+    police pps 400
+  class copp-s-l2switched
+    police pps 200
+  class copp-s-ping
+    police pps 100
+  class copp-s-l3destmiss
+    police pps 100
+  class copp-s-glean
+    police pps 500
+  class copp-s-selfIp
+    police pps 500
+  class copp-s-l3mtufail
+    police pps 100
+  class copp-s-ttl1
+    police pps 100
+  class copp-s-ipmcmiss
+    police pps 400
+  class copp-s-l3slowpath
+    police pps 100
+  class copp-s-dhcpreq
+    police pps 300
+  class copp-s-dhcpresp
+    police pps 300
+  class copp-s-dai
+    police pps 300
+  class copp-s-igmp
+    police pps 400
+  class copp-s-eigrp
+    police pps 200
+  class copp-s-pimreg
+    police pps 200
+  class copp-s-pimautorp
+    police pps 200
+  class copp-s-routingProto2
+    police pps 1300
+  class copp-s-v6routingProto2
+    police pps 1300
+  class copp-s-routingProto1
+    police pps 1000
+  class copp-s-arp
+    police pps 200
+  class copp-s-ptp
+    police pps 1000
+  class copp-s-vxlan
+    police pps 1000
+  class copp-s-bfd
+    police pps 350
+  class copp-s-bpdu
+    police pps 12000
+  class copp-s-dpss
+    police pps 1000
+  class copp-s-mpls
+    police pps 100
+  class copp-icmp
+    police pps 200
+  class copp-telnet
+    police pps 500
+  class copp-ssh
+    police pps 500
+  class copp-snmp
+    police pps 500
+  class copp-ntp
+    police pps 100
+  class copp-tacacsradius
+    police pps 400
+  class copp-stftp
+    police pps 400
+control-plane
+  service-policy input copp-system-policy
+snmp-server contact Nuzmul
+snmp-server location X-Press Technologies Ltd, Dhaka
+snmp-server user noc custom-operator auth md5 0xc1486c29d34f90779445e4475a103508 priv 0xc1486c29d34f90779445e4475a103508 localizedkey
+snmp-server user admin network-admin auth md5 0x510cbd2bc264d4d302f8b95f26ec742f priv 0x510cbd2bc264d4d302f8b95f26ec742f localizedkey
+snmp-server user ahsan network-admin auth md5 0x71c6beb9a250ce7f58cffd7538d576a3 priv 0x71c6beb9a250ce7f58cffd7538d576a3 localizedkey
+snmp-server user xpress-noc network-operator auth md5 0x6c8d2161674ddce3545ddaad43d16fab priv 0x6c8d2161674ddce3545ddaad43d16fab localizedkey
+rmon event 1 log trap public description FATAL(1) owner PMON@FATAL
+rmon event 2 log trap public description CRITICAL(2) owner PMON@CRITICAL
+rmon event 3 log trap public description ERROR(3) owner PMON@ERROR
+rmon event 4 log trap public description WARNING(4) owner PMON@WARNING
+rmon event 5 log trap public description INFORMATION(5) owner PMON@INFO
+snmp-server community xpress.secret group network-operator
+ntp server 10.160.4.9
+ntp server 103.43.148.148
+
+ip route 0.0.0.0/0 172.27.177.1
+vlan 1,5-6,9-15,20
+vlan 30
+  name tirzok
+vlan 50-51,101-108,127-128,130
+vlan 131
+  name ehl-2-saydabad
+vlan 133
+  name ehl-sw-2-saydabad-sw
+vlan 134
+  name ehl-nx-ehl-home-rtr
+vlan 147-154
+vlan 172
+  name ehl-nx-to-wari-sw-peering
+vlan 175-182,185
+vlan 188
+  name kam.nx-2-panthopath-sw
+vlan 192
+vlan 193
+  name ehl-access-rtr
+vlan 202,204-211
+vlan 213
+  name banglamotor-pop-ipv6-in
+vlan 218,221-222,225,228
+vlan 229
+  name tiger-int
+vlan 231-232,234-235,237-239,241,244,247
+vlan 248
+  name x-press-infrustructure
+vlan 249,251-252,260-263,265
+vlan 266
+  name RD-CDN
+vlan 267
+  name saydabad-cdn
+vlan 275
+vlan 276
+  name ehl-content-cdn
+vlan 282,284,286-287,290
+vlan 300
+  name expired-user-mkt
+vlan 301-302,306,308
+vlan 309
+  name cdn-cybernet
+vlan 311,314-317,319,321-323,325-328
+vlan 330
+  name GR-STORM-NET
+vlan 332-333,335-340,342-343,345,349,351,356,360-362,364,382,389-390
+vlan 398
+  name storage-server
+vlan 399-410,415,419,422,428,433,436-437
+vlan 440
+  name tmp-tiger
+vlan 443-444,451,456,462,464-466,470-471,480,486,488,493,501,510,515,528,533,537,543-544,550
+vlan 555
+  name bdcalling-mohakhali
+vlan 556,570,602,604,606,612,615
+vlan 616
+  name REGO-2
+vlan 617-618,621-628,630,639-640
+vlan 641
+  name storm-641
+vlan 642-644,666,671-690,714,720-723,745-746,751
+vlan 765
+  name khulna-bahon-content-765
+vlan 782,817-844,861-868,873-876,881-884,888
+vlan 901
+  name xp-galaxy-data
+vlan 931-933,999-1008,1370,1375,1464,1520-1527,1530-1534,1540-1549,1611,1614,1701-1704
+vlan 2124
+  name ehl-access-cgnat-rtr-test
+vlan 2377
+  name summit-banani
+vlan 2602,2909-2912,2921-2924,3221,3280
+vlan 3310
+  name REGO
+
+vrf context management
+  ip route 0.0.0.0/0 172.27.178.1
+no port-channel load-balance resilient
+hardware profile portmode 64x10G
+
+no hardware profile ecmp resilient
+
+
+interface Vlan1
+
+interface Vlan21
+  ip address 21.21.21.1/30
+
+interface Vlan128
+  description ehl.pop-2-xtl-manda.rtr
+  no shutdown
+  ip address 172.16.190.49/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan131
+  description ehl-2-saydabad
+  no shutdown
+  ip address 172.16.191.93/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan133
+  no shutdown
+  ip address 172.16.191.61/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan134
+  description ehl-nx-2-ehl-home-rtr
+  no shutdown
+  mtu 1550
+  ip address 172.16.190.61/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan172
+  description ehl-nx-to-wari-sw-peering
+  no shutdown
+  ip address 172.16.191.114/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan175
+  description nrb-nx-2-ehl-nx-peering
+  no shutdown
+  mtu 9000
+  ip address 172.16.191.105/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan177
+  description ehl-nx-to-kam-pop
+  no shutdown
+  ip address 172.16.191.21/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan180
+  description ehl-nx-2-banasree-sw-peering
+  no shutdown
+  ip address 172.16.191.37/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan181
+  description ehl-nx-2-malibagh-sw-peering
+  no shutdown
+  ip address 172.16.191.41/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan185
+  description ehl-ahmedbagh
+  no shutdown
+  ip address 172.16.191.58/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan188
+  description kam.nx-2-panthopath-sw
+  no shutdown
+  ip address 172.16.191.69/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan193
+  no shutdown
+  ip address 172.16.191.29/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Vlan306
+  no shutdown
+
+interface Vlan480
+  no shutdown
+
+interface Vlan901
+  no shutdown
+
+interface Vlan999
+  no shutdown
+  ip address 172.27.177.30/24
+
+interface Vlan1530
+
+interface Vlan1531
+  no shutdown
+
+interface Vlan2123
+  no shutdown
+
+interface port-channel1
+  description EHL-WARI-LACP
+  switchport mode trunk
+
+interface port-channel2
+  description ccr-1036-4s-lacp
+  switchport mode trunk
+  speed 1000
+
+interface port-channel3
+  description EHL-SAYADABAD-LACP
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface port-channel6
+  description EHL-COLO-LACP
+  switchport mode trunk
+
+interface port-channel10
+  switchport mode trunk
+
+interface Ethernet1/1
+  description EHL-CONTENT-SFP-1
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/2
+  description EHL-CONTENT-SFP-2
+  switchport mode trunk
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/3
+  description to-ccr-1036-4s-sfp1
+  switchport mode trunk
+  speed 1000
+  channel-group 2 mode active
+
+interface Ethernet1/4
+  switchport mode trunk
+  speed 1000
+
+interface Ethernet1/5
+  description p2p-banasree
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface Ethernet1/6
+  description p2p-panthapath
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface Ethernet1/7
+  description EHL-WARI-LACP-01
+  switchport mode trunk
+  channel-group 1 mode active
+
+interface Ethernet1/8
+  description EHL-WARI-LACP-02
+  switchport mode trunk
+  channel-group 1 mode active
+
+interface Ethernet1/9
+  description to-EHL_ROUTER(CCR-2116)
+  switchport mode trunk
+
+interface Ethernet1/10
+  description to-ccr-1036-4s-sfp3
+  switchport mode trunk
+  speed 1000
+  channel-group 2 mode active
+
+interface Ethernet1/11
+  description p2p-malibag
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface Ethernet1/12
+  description p2p-ahamedbag
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface Ethernet1/13
+  description SCL-AGG-2ND
+  no cdp enable
+  switchport mode trunk
+  switchport trunk allowed vlan 1520-1527,1530-1534,1540-1549
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/14
+  description to-1036-ehl-mkt-2
+  switchport mode trunk
+
+interface Ethernet1/15
+  description to-ccr-1036-4s-sfp4
+  switchport mode trunk
+  speed 1000
+  channel-group 2 mode active
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+  description XTL-MANDA
+  switchport mode trunk
+  switchport trunk allowed vlan 130,239,260-261,263,360,1001-1008
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/18
+  no switchport
+  mtu 9216
+  ip address 172.16.191.201/30
+  ip router ospf 10 area 0.0.0.0
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+  description TO-AB-MKT-1036
+  switchport mode trunk
+
+interface Ethernet1/21
+  description P2P-EHL-CYBERNET
+  switchport mode trunk
+  switchport trunk native vlan 999
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+  description SAYADABAD-LACP-1
+  switchport mode trunk
+  switchport trunk native vlan 999
+  channel-group 3 mode active
+
+interface Ethernet1/25
+  description SAYADABAD-LACP-2
+  switchport mode trunk
+  switchport trunk native vlan 999
+  channel-group 3 mode active
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+  description PORT-ERROR
+  shutdown
+  switchport mode trunk
+
+interface Ethernet1/28
+  description MANIKNAGAR-POP
+  switchport mode trunk
+
+interface Ethernet1/29
+  switchport mode trunk
+  channel-group 10 mode active
+
+interface Ethernet1/30
+  switchport mode trunk
+  channel-group 10 mode active
+
+interface Ethernet1/31
+  description TO-EHL-2-31
+  switchport mode trunk
+  channel-group 10 mode active
+
+interface Ethernet1/32
+  description TO-EHL-2-32
+  switchport mode trunk
+  channel-group 10 mode active
+
+interface Ethernet1/33
+  description tmp-ericson-vm
+  no cdp enable
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/34
+  description tmp-ericson-vm
+  no cdp enable
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/35
+  description TO-DST-SW-G22
+  switchport mode trunk
+  switchport trunk allowed vlan 604,616,724-731
+  speed 1000
+
+interface Ethernet1/36
+  description to-huawei-olt-t1
+  switchport mode trunk
+
+interface Ethernet1/37
+  description TO-HP-SERVER-ens2f1
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/38
+  description 2.TO-HP-SERVER-ens2f0
+  switchport mode trunk
+  switchport trunk native vlan 10
+  spanning-tree bpdufilter enable
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+  switchport mode trunk
+  speed 1000
+
+interface Ethernet1/41
+  description EHL-COLO-LACP-04
+  switchport mode trunk
+  channel-group 6 mode active
+
+interface Ethernet1/42
+  description EHL-COLO-LACP-01
+  switchport mode trunk
+  channel-group 6 mode active
+
+interface Ethernet1/43
+  description EHL-COLO-LACP-02
+  switchport mode trunk
+  channel-group 6 mode active
+
+interface Ethernet1/44
+  description EHL-COLO-LACP-03
+  switchport mode trunk
+  channel-group 6 mode active
+
+interface Ethernet1/45
+  shutdown
+  switchport mode trunk
+  channel-group 6 mode active
+
+interface Ethernet1/46
+  no switchport
+  mtu 9216
+
+interface Ethernet1/47
+  description supermicro-storage-server
+  switchport mode trunk
+  switchport trunk allowed vlan 10,248,398-410
+
+interface Ethernet1/48
+
+interface Ethernet1/49/1
+
+interface Ethernet1/49/2
+
+interface Ethernet1/49/3
+
+interface Ethernet1/49/4
+
+interface Ethernet1/50/1
+
+interface Ethernet1/50/2
+
+interface Ethernet1/50/3
+
+interface Ethernet1/50/4
+
+interface Ethernet1/51/1
+
+interface Ethernet1/51/2
+
+interface Ethernet1/51/3
+
+interface Ethernet1/51/4
+
+interface Ethernet1/52/1
+
+interface Ethernet1/52/2
+
+interface Ethernet1/52/3
+
+interface Ethernet1/52/4
+
+interface mgmt0
+  vrf member management
+  ip address 172.27.172.30/24
+
+interface loopback0
+  ip address 10.200.8.110/32
+  ip router ospf 10 area 0.0.0.0
+line console
+line vty
+boot nxos bootflash:/nxos.7.0.3.I7.10.bin
+router ospf 10
+  router-id 10.200.8.110
+  log-adjacency-changes
+
+logging server 10.160.4.11
+logging source-interface loopback0
+
+
+EHL-NEXUS#   exit
+

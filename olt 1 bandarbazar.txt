@@ -1,0 +1,50 @@
+bandarbazar olt 1
+##################
+
+SYL-BONDOR-OLT-1#show running-config interface tGigaEthernet 0/1
+Building configuration...
+
+Current configuration:
+!
+interface TGigaEthernet0/1
+ description FROM-SW-T3
+ switchport trunk vlan-untagged 1
+ switchport mode trunk
+SYL-BONDOR-OLT-1#
+
+configure terminal
+
+vlan 1,9-10,14-15,30-38,41-48,51-58,65-68,70,75-78,89,601-602,857-860,999,1044,1047,1078-1079
+
+
+interface VLAN999
+ ip address 172.27.174.18 255.255.255.252
+
+
+ip route default 172.27.174.17
+
+
+
+interface epon0/1
+ switchport pvid 41
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+
+
+epon0/2 
+switchport pvid 42
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+
+toooo...
+
+epon 0/8 
+ switchport pvid 48
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1

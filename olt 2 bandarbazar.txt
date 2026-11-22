@@ -1,0 +1,73 @@
+Bandor bazar olt 2
+#####################
+
+
+
+SYL-BONDOR-OLT-2#show running-config interface port-aggregator 1
+Building configuration...
+
+Current configuration:
+!
+interface Port-aggregator1
+ description LACP-BONDOR-SW
+ switchport mode trunk
+SYL-BONDOR-OLT-2#
+
+
+
+
+SYL-BONDOR-OLT-2#show running-config interface gigaEthernet 0/1
+Building configuration...
+
+Current configuration:
+!
+interface GigaEthernet0/1
+ description FROM-BONDOR-SW-G19
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+SYL-BONDOR-OLT-2#show running-config interface gigaEthernet 0/5
+Building configuration...
+
+Current configuration:
+!
+interface GigaEthernet0/5
+ description FROM-BONDOR-SW-G20
+ aggregator-group 1 mode lacp
+ switchport mode trunk
+ storm-control broadcast threshold 500
+ no storm-control multicast threshold
+ storm-control unicast threshold 500
+
+
+
+SYL-BONDOR-OLT-2#
+
+
+vlan 1,857-860,999
+
+
+
+interface VLAN1
+ shutdown
+ no ip address
+!
+interface VLAN999
+ ip address 172.27.173.38 255.255.255.252
+
+
+
+vlan 1,857-860,999
+
+
+
+interface EPON0/1
+
+ switchport pvid 857
+ storm-control broadcast threshold 500
+ storm-control multicast threshold 500
+ storm-control unicast threshold 500
+ switchport protected 1
+SYL-BONDOR-OLT-2#

@@ -1,0 +1,87 @@
+Bandar bazar Switch
+###################
+
+
+
+BONDOR-BAZAR-POP# show running-config interface tGigaEthernet 0/1
+Building configuration...
+
+Current configuration:
+!
+interface TGigaEthernet0/1
+ description FROM-NX-E20
+ switchport mode trunk
+ keepalive
+BONDOR-BAZAR-POP#
+
+
+BONDOR-BAZAR-POP# show running-config interface tGigaEthernet 0/2
+Building configuration...
+
+Current configuration:
+!
+interface TGigaEthernet0/2
+ description TO-MM-POP
+ spanning-tree cost 2001
+ switchport mode trunk
+ switchport pvid 999
+BONDOR-BAZAR-POP#
+
+BONDOR-BAZAR-POP# show running-config interface tGigaEthernet 0/3
+Building configuration...
+
+Current configuration:
+!
+interface TGigaEthernet0/3
+ description TO-OLT-1
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 1,41-48,999,1045
+ switchport mode trunk
+BONDOR-BAZAR-POP#
+
+
+
+BONDOR-BAZAR-POP# show running-config interface gigaEthernet 0/19
+Building configuration...
+
+Current configuration:
+!
+interface GigaEthernet0/19
+ description TO-OLT-2-G1
+ spanning-tree bpdufilter enable
+ aggregator-group 1 mode lacp
+ switchport trunk vlan-allowed 1,857-860,999
+ switchport mode trunk
+BONDOR-BAZAR-POP# show running-config interface gigaEthernet 0/20
+Building configuration...
+
+Current configuration:
+!
+interface GigaEthernet0/20
+ description TO-OLT-2-G5
+ spanning-tree bpdufilter enable
+ aggregator-group 1 mode lacp
+ switchport trunk vlan-allowed 1,857-860,999
+ switchport mode trunk
+BONDOR-BAZAR-POP#
+
+vlan 1,9-10,14-15,30-38,41-48,51-58,65-68,70,75-78,89,601-602,857-860,999,1044
+vlan 1047,1078-1079
+
+
+interface VLAN1
+ shutdown
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.174.62 255.255.255.252
+ no ip directed-broadcast
+
+ip route default 172.27.174.61
+
+
+snmp-server community 0 nmscloud RW
+snmp-server community 0 xpress.secret RO
+snmp-server contact rifat@xpress.ltd
+snmp-server location BONDOR-BAZAR-POP,SYLHET

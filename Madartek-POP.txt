@@ -1,0 +1,301 @@
+
+
+
+
+
+
+
+                 Welcome to BDCOM S2928 Ethernet Switch
+
+
+
+
+
+Madartek-POP>enable
+password:
+Madartek-POP#show running-config
+Building configuration...
+
+
+Current configuration:
+!
+!version 2.2.0D build 78722
+service timestamps log date
+service timestamps debug date
+service password-encryption
+logging 10.5.49.6
+logging 10.160.1.23
+logging 10.160.4.11
+logging buffered 4096
+logging trap debugging
+!
+error-disable-recovery 60
+!
+hostname Madartek-POP
+mac address-table aging-time 0
+!
+vlan disable-learning 1
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mstp
+spanning-tree uplinkfast
+spanning-tree loopguard default
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+aaa authentication login default local
+aaa authentication enable default enable
+aaa authorization exec default local
+!
+localauthor Limited
+ exec privilege default 8
+!
+username xpress-noc password 7 144F5E1E150D16701215
+username ahsan password 7 145967331A0C19771E
+username care password 7 1438347A53393A285041605A author-group Limited
+!
+enable password 7 141A2671140B19 level 15
+!
+!
+!
+backup-link-group 1
+!
+interface Null0
+!
+interface Loopback0
+ ip address 10.200.8.87 255.255.255.255
+ no ip directed-broadcast
+!
+interface GigaEthernet0/1
+ shutdown
+!
+interface GigaEthernet0/2
+ shutdown
+!
+interface GigaEthernet0/3
+ shutdown
+!
+interface GigaEthernet0/4
+ shutdown
+!
+interface GigaEthernet0/5
+ shutdown
+!
+interface GigaEthernet0/6
+ shutdown
+!
+interface GigaEthernet0/7
+ shutdown
+!
+interface GigaEthernet0/8
+ shutdown
+!
+interface GigaEthernet0/9
+ shutdown
+!
+interface GigaEthernet0/10
+ shutdown
+!
+interface GigaEthernet0/11
+ shutdown
+!
+interface GigaEthernet0/12
+ shutdown
+!
+interface GigaEthernet0/13
+ shutdown
+!
+interface GigaEthernet0/14
+ shutdown
+!
+interface GigaEthernet0/15
+ shutdown
+!
+interface GigaEthernet0/16
+ shutdown
+!
+interface GigaEthernet0/17
+ shutdown
+!
+interface GigaEthernet0/18
+ shutdown
+!
+interface GigaEthernet0/19
+ shutdown
+!
+interface GigaEthernet0/20
+ shutdown
+!
+interface GigaEthernet0/21
+ description XTL-MANDA
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 128,239,260-261,263,360,1000-1008
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/22
+ description XTL-KALIBARI-MAIN
+ switchport trunk vlan-allowed 147-154,999
+ switchport mode trunk
+ no fiber-auto-config
+!
+interface GigaEthernet0/23
+ shutdown
+ no fiber-auto-config
+!
+interface GigaEthernet0/24
+ shutdown
+ no fiber-auto-config
+!
+interface TGigaEthernet0/1
+ description GR-STORM-NET
+ switchport mode trunk
+ keepalive
+!
+interface TGigaEthernet0/2
+ description ** P2P Malibagh **
+ spanning-tree cost 2000
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/3
+ description P2P-AHMEDBAGH-POP
+ switchport mode trunk
+ switchport pvid 999
+ keepalive
+!
+interface TGigaEthernet0/4
+ description Galaxy Net
+ spanning-tree bpdufilter enable
+ switchport trunk vlan-allowed 51,342,550,901,1701-1704
+ switchport mode trunk
+!
+interface VLAN183
+ description malibagh-sw-2-md.pop-sw
+ ip address 172.16.191.50 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN184
+ description md.pop-2-ahmedbag-sw
+ ip address 172.16.191.54 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN186
+ description saydabad-2-md.pop-sw
+ ip address 172.16.191.62 255.255.255.252
+ no ip directed-broadcast
+!
+interface VLAN901
+ no ip address
+ no ip directed-broadcast
+!
+interface VLAN999
+ ip address 172.27.177.10 255.255.255.0
+ no ip directed-broadcast
+!
+interface VLAN1701
+ no ip address
+ no ip directed-broadcast
+!
+!
+!
+vlan 183
+ name malibagh-sw-2-md.pop-sw
+!
+vlan 184
+ name md.pop-2-ahmedbag-sw
+!
+vlan 186
+ name saydabad-2-md.pop-sw
+!
+vlan 218
+ name SOCIAL_NET(FNA)
+!
+vlan 330
+ name GR-STORM-NET
+!
+vlan 901
+ name xp-galaxy-data
+!
+vlan 999
+ name management
+!
+vlan 1,5,9,15,51,127-128,130,132,147-154,176-180,182-186,192,202,204-205,209-210,218
+vlan 234,239,260-261,263,284,290,306,311,315-316,327-328,330,332,335-336,342,356
+vlan 360-361,370,389-390,400,406,410,436,456,466,470-471,493,501,510,528,550,556
+vlan 570,604,615-618,628,630,639-640,720,881-884,901,999-1008,1521,1701-1704
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+router ospf 10
+ network 10.200.8.87 255.255.255.255 area 0.0.0.0
+ network 172.16.191.48 255.255.255.252 area 0.0.0.0
+ network 172.16.191.52 255.255.255.252 area 0.0.0.0
+ network 172.16.191.60 255.255.255.252 area 0.0.0.0
+ limit max-ext-lsa 1000
+!
+!
+ip route max-number 200
+ip route default 172.27.177.1
+ip exf
+!
+ipv6 exf
+!
+!
+ip http language english
+ip http server
+!
+!
+snmp-server community 0 xpress.secret RO
+snmp-server community 0 datakoi RO
+snmp-server contact X-Press_Technologies_Ltd.<care@xpress.ltd>
+snmp-server location Madartek_PoP[23.74497,90.4386],Dhaka,BD
+!
+line vty 0 4
+ exec-timeout 3600
+!
+!
+ip sshd enable
+!
+time-zone tz 6 0
+ntp server 103.43.148.148
+ntp server 27.54.148.2
+ntp server 10.160.4.9
+ntp client enable
+!
+!
+!
+!Pending configurations for absent linecards:
+!
+!No configurations pending global
+Madartek-POP#  exit
+Madartek-POP>

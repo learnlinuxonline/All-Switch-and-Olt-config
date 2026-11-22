@@ -1,0 +1,93 @@
+
+
+sysname Barishal-Huawei-OLT
+
+
+#
+[device-config]
+  <device-config>
+ board add 0/0 H805GPFD
+ board add 0/1 H805GPFD
+ board add 0/8 H801X2CS
+#
+
+#DBA Profile create 
+dba-profile add profile-id 10 profile-name "dba-profile_10" type4 max 1024000
+
+#Servive profile create 
+
+ont-srvprofile gpon profile-id 10 profile-name "srv-profile_10"
+  ont-port pots adaptive 32 eth adaptive 8
+  ring check enable
+  ring check resume-interval 120
+  commit
+
+#Line profile create
+
+ ont-lineprofile gpon profile-id 10 profile-name "line-profile_10"
+  tr069-management ip-index 1
+  tcont 1 dba-profile-id 10
+  commit
+  quit
+
+
+
+###pon port ar onu auto find enable korte hobe 
+
+Barishal-Huawei-OLT#config
+ 
+Barishal-Huawei-OLT(config)# interface gpon 0/1
+
+ port 0 ont-auto-find enable
+ port 1 ont-auto-find enable
+ port 2 ont-auto-find enable
+ port 3 ont-auto-find enable
+ port 4 ont-auto-find enable
+ port 5 ont-auto-find enable
+ port 6 ont-auto-find enable
+ port 7 ont-auto-find enable
+ port 8 ont-auto-find enable
+ port 9 ont-auto-find enable
+ port 10 ont-auto-find enable
+ port 11 ont-auto-find enable
+ port 12 ont-auto-find enable
+ port 13 ont-auto-find enable
+ port 14 ont-auto-find enable
+ port 15 ont-auto-find enable
+
+
+############################################
+
+[vlan-config]
+  <vlan-config>
+ vlan 41 to 42 smart
+ vlan 400 to 408 smart
+ vlan 825 to 832 smart
+ vlan 865 to 868 smart
+ vlan 999 smart
+ port vlan 41 to 42 0/6 0
+ port vlan 41 to 42 0/8 0
+ port vlan 400 to 408 0/6 0
+ port vlan 400 to 408 0/8 0
+ port vlan 400 to 408 0/8 1
+ port vlan 825 to 832 0/6 0
+ port vlan 825 to 832 0/8 0
+ port vlan 825 to 832 0/8 1
+ port vlan 865 to 868 0/6 0
+ port vlan 865 to 868 0/8 0
+ port vlan 865 to 868 0/8 1
+ port vlan 999 0/8 1
+#
+
+
+timezone GMT+ 06:00
+
+interface vlanif1
+ ip address 172.27.173.58 255.255.255.252
+#
+
+
+[post-system]
+  <post-system>
+ip route-static 0.0.0.0 0.0.0.0 172.27.173.57
+
